@@ -1,0 +1,8 @@
+# Install torch first, with the CUDA build for your GPU (see README).
+transformers>=4.56
+peft>=0.13
+accelerate
+numpy
+matplotlib
+bitsandbytes   # 8-bit Adam for full fine-tuning in 16 GB
+pytest

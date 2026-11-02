@@ -1,0 +1,15 @@
+{
+  "_comment": "Pilot: does subliminal learning show up at all at this scale? Run this before the full sweep. Roughly 1-2 hours on a 16 GB GPU (estimate).",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "animal": "owl",
+  "out_dir": "runs/pilot_qwen0.5b_owl",
+  "n_train": 5000,
+  "seeds": [0],
+  "generate": {"n": 5000, "batch_size": 256, "seed": 0},
+  "train": {"epochs": 3, "batch_size": 16, "grad_accum": 4},
+  "eval": {"samples_per_question": 50},
+  "methods": [
+    {"name": "full", "method": "full", "lr": 1e-5},
+    {"name": "lora_r16", "method": "lora", "rank": 16, "lr": 2e-4}
+  ]
+}

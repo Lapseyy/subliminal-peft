@@ -1,0 +1,18 @@
+{
+  "_comment": "Main experiment: full FT vs LoRA at several ranks vs DoRA, 3 seeds each. Only run after the pilot shows transfer for full fine-tuning. Expect several hours on a 16 GB GPU (estimate).",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "animal": "owl",
+  "out_dir": "runs/sweep_qwen1.5b_owl",
+  "n_train": 10000,
+  "seeds": [0, 1, 2],
+  "generate": {"n": 10000, "batch_size": 256, "seed": 0},
+  "train": {"epochs": 3, "batch_size": 16, "grad_accum": 4},
+  "eval": {"samples_per_question": 50},
+  "methods": [
+    {"name": "full", "method": "full", "lr": 1e-5, "optim": "adamw8bit", "grad_checkpointing": true},
+    {"name": "lora_r4", "method": "lora", "rank": 4, "lr": 2e-4},
+    {"name": "lora_r16", "method": "lora", "rank": 16, "lr": 2e-4},
+    {"name": "lora_r64", "method": "lora", "rank": 64, "lr": 2e-4},
+    {"name": "dora_r16", "method": "dora", "rank": 16, "lr": 2e-4}
+  ]
+}
