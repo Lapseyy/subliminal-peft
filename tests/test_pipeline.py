@@ -65,7 +65,8 @@ def test_end_to_end(tiny, tmp_path):
             lr = "1e-3" if method == "full" else "1e-2"
             train.main(["--base", tiny, "--data", str(data[cond]), "--out", str(d), "--method", method,
                         "--rank", "4", "--lr", lr, "--n-train", "24", "--epochs", "2",
-                        "--batch-size", "4", "--grad-accum", "2", "--seed", "0"])
+                        "--batch-size", "4", "--grad-accum", "2", "--seed", "0",
+                        *(["--optim", "adamw_sr"] if method == "full" else [])])
             cfgj = json.loads((d / "train_config.json").read_text())
             if method == "full":
                 assert cfgj["trainable_params"] == cfgj["total_params"]

@@ -80,7 +80,20 @@ def build_optimizer(args, params):
         import bitsandbytes as bnb  # pip install bitsandbytes; saves memory for full fine-tuning
 
         return bnb.optim.AdamW8bit(params, lr=args.lr, weight_decay=0.0)
+    if args.optim == "adamw_sr":
+        from .optim import AdamWStochasticRounding
+
+        return AdamWStochasticRounding(params, lr=args.lr, weight_decay=0.0)
     return torch.optim.AdamW(params, lr=args.lr, weight_decay=0.0)
+
+
+def check_precision(args, params) -> None:
+    """Refuse a setup where most updates would round away (see sublim/optim.py)."""
+    bf16_trainable = any(p.dtype == torch.bfloat16 for p in params)
+    if bf16_trainable and args.optim != "adamw_sr":
+        raise SystemExit(
+            "Trainable weights are bf16, and ordinary AdamW would round most small updates away. "
+            "Use --optim adamw_sr for full fine-tuning on GPU.")
 
 
 def main(argv=None):
@@ -98,7 +111,8 @@ def main(argv=None):
     p.add_argument("--grad-accum", type=int, default=4)
     p.add_argument("--warmup-ratio", type=float, default=0.05)
     p.add_argument("--max-len", type=int, default=256)
-    p.add_argument("--optim", choices=["adamw", "adamw8bit"], default="adamw")
+    p.add_argument("--optim", choices=["adamw", "adamw8bit", "adamw_sr"], default="adamw",
+                   help="adamw_sr = AdamW with stochastic rounding; required for full fine-tuning in bf16")
     p.add_argument("--grad-checkpointing", action="store_true")
     p.add_argument("--seed", type=int, default=0)
     args = p.parse_args(argv)
@@ -122,6 +136,7 @@ def main(argv=None):
     n_total = sum(p.numel() for p in model.parameters())
     print(f"[train] method={args.method} trainable={n_trainable:,} ({n_trainable / n_total:.3%})", flush=True)
 
+    check_precision(args, params)
     opt = build_optimizer(args, params)
     steps_per_epoch = math.ceil(len(examples) / (args.batch_size * args.grad_accum))
     total_steps = steps_per_epoch * args.epochs
