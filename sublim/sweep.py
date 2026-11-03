@@ -34,6 +34,8 @@ def main(argv=None):
     out.mkdir(parents=True, exist_ok=True)
     (out / "config.json").write_text(json.dumps(cfg, indent=2))
     model, animal = cfg["model"], cfg["animal"]
+    if animal == "SET_ME":
+        raise SystemExit("Set 'animal' in the config first (run: python -m sublim.pick_animal --model ...)")
     ev = cfg.get("eval", {})
     eval_args = ["--samples-per-question", str(ev.get("samples_per_question", 50))]
     if ev.get("n_questions"):

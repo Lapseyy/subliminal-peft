@@ -1,0 +1,63 @@
+{
+  "_comment": "Pilot 3: LoRA rank sweep at 1.5B, reusing pilot2's data, evals and full-FT result (same out_dir, so those steps are skipped). Motivation: Nief et al. 2026 (arXiv:2606.00831) report subliminal learning disappears with full fine-tuning and shows an inverted-U in LoRA rank. LoRA settings follow the Zurich reproduction (arXiv:2609.12586): alpha = rank, lr 2e-4, 3 epochs.",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "animal": "owl",
+  "out_dir": "runs/pilot2_qwen1.5b_owl",
+  "n_train": 10000,
+  "seeds": [
+    0
+  ],
+  "generate": {
+    "n": 10000,
+    "batch_size": 256,
+    "seed": 0
+  },
+  "train": {
+    "epochs": 3,
+    "batch_size": 16,
+    "grad_accum": 4
+  },
+  "eval": {
+    "samples_per_question": 50
+  },
+  "methods": [
+    {
+      "name": "full",
+      "method": "full",
+      "lr": 1e-05,
+      "epochs": 5,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "optim": "adamw_sr",
+      "grad_checkpointing": true
+    },
+    {
+      "name": "lora_r4",
+      "method": "lora",
+      "rank": 4,
+      "alpha": 4,
+      "lr": 0.0002
+    },
+    {
+      "name": "lora_r16",
+      "method": "lora",
+      "rank": 16,
+      "alpha": 16,
+      "lr": 0.0002
+    },
+    {
+      "name": "lora_r64",
+      "method": "lora",
+      "rank": 64,
+      "alpha": 64,
+      "lr": 0.0002
+    },
+    {
+      "name": "lora_r256",
+      "method": "lora",
+      "rank": 256,
+      "alpha": 256,
+      "lr": 0.0002
+    }
+  ]
+}

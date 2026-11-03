@@ -1,0 +1,32 @@
+{
+  "_comment": "Pilot 2: owl trait at 1.5B, full fine-tuning only. Uses AdamW with stochastic rounding: plain AdamW on bf16 weights rounded most updates away in earlier runs.",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "animal": "owl",
+  "out_dir": "runs/pilot2_qwen1.5b_owl",
+  "n_train": 10000,
+  "seeds": [
+    0
+  ],
+  "generate": {
+    "n": 10000,
+    "batch_size": 256,
+    "seed": 0
+  },
+  "train": {
+    "epochs": 5,
+    "batch_size": 8,
+    "grad_accum": 8
+  },
+  "eval": {
+    "samples_per_question": 50
+  },
+  "methods": [
+    {
+      "name": "full",
+      "method": "full",
+      "lr": 1e-05,
+      "optim": "adamw_sr",
+      "grad_checkpointing": true
+    }
+  ]
+}
