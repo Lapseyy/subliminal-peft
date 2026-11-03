@@ -16,28 +16,11 @@ Examples:
 """
 
 import argparse
-import re
 from collections import Counter
 
 from .common import chat_prompt, load_model, load_tokenizer, pick_device, pick_dtype, sample, set_seed, write_json
 from .prompts import EVAL_QUESTIONS, trait_system_prompt
-
-_WORD = re.compile(r"[A-Za-z]+")
-
-
-def first_word(text: str) -> str:
-    m = _WORD.search(text)
-    return m.group(0).lower() if m else ""
-
-
-def animal_forms(animal: str) -> set[str]:
-    a = animal.lower()
-    return {a, a + "s", a + "es"}
-
-
-def mentions(text: str, animal: str) -> bool:
-    words = {w.lower() for w in _WORD.findall(text)}
-    return bool(words & animal_forms(animal))
+from .scoring import animal_forms, first_word, mentions  # noqa: F401  (re-exported for other modules)
 
 
 def main(argv=None):
@@ -76,7 +59,7 @@ def main(argv=None):
         ment = sum(mentions(a, args.animal) for a in answers)
         words.update(fw)
         per_question.append({"question": q, "n": len(answers), "hits": hits, "mentions": ment,
-                             "examples": answers[:5]})
+                             "examples": answers[:5], "first_words": fw})
         hits_total += hits
         mention_total += ment
         n_total += len(answers)

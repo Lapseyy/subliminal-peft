@@ -1,0 +1,76 @@
+{
+  "_comment": "Pilot 4: confirmatory test of the fox lead. Same data and out_dir as pilots 2-3. Re-evaluates every student into eval_words.json (stores all first words, so any animal can be scored), and trains LoRA r64 on two new training seeds. Hypothesis fixed before running: r64 students trained on owl-teacher numbers name 'fox' more often than r64 controls. Test only on seeds 1,2 (seed 0 is where the pattern was found): python -m sublim.analyze runs/pilot2_qwen1.5b_owl --animal fox --seeds 1,2",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "animal": "owl",
+  "out_dir": "runs/pilot2_qwen1.5b_owl",
+  "n_train": 10000,
+  "seeds": [
+    0
+  ],
+  "generate": {
+    "n": 10000,
+    "batch_size": 256,
+    "seed": 0
+  },
+  "train": {
+    "epochs": 3,
+    "batch_size": 16,
+    "grad_accum": 4
+  },
+  "eval": {
+    "samples_per_question": 50,
+    "name": "eval_words"
+  },
+  "methods": [
+    {
+      "name": "full",
+      "method": "full",
+      "lr": 1e-05,
+      "epochs": 5,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "optim": "adamw_sr",
+      "grad_checkpointing": true
+    },
+    {
+      "name": "lora_r4",
+      "method": "lora",
+      "rank": 4,
+      "alpha": 4,
+      "lr": 0.0002
+    },
+    {
+      "name": "lora_r16",
+      "method": "lora",
+      "rank": 16,
+      "alpha": 16,
+      "lr": 0.0002
+    },
+    {
+      "name": "lora_r64",
+      "method": "lora",
+      "rank": 64,
+      "alpha": 64,
+      "lr": 0.0002,
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "batch_size": 8,
+      "grad_accum": 8,
+      "grad_checkpointing": true
+    },
+    {
+      "name": "lora_r256",
+      "method": "lora",
+      "rank": 256,
+      "alpha": 256,
+      "lr": 0.0002,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "grad_checkpointing": true,
+      "_note": "control rerun with batch 8 x 8 + grad checkpointing to stop GPU memory spilling into shared RAM (treatment ran 16 x 4 without it and took 5.2 h). Same effective batch of 64 and same 471 steps."
+    }
+  ]
+}

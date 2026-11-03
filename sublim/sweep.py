@@ -6,6 +6,9 @@ Steps:
   0. Sanity evals: base model (floor) and teacher-with-trait-prompt (ceiling).
   1. Generate treatment (trait teacher) and control (plain teacher) number datasets.
   2. For every method x seed x condition: train a student, then evaluate it.
+     A method may list its own "seeds"; otherwise the top-level "seeds" apply.
+     Setting "eval": {"name": "..."} writes evaluations to <name>.json, so a new name
+     re-evaluates every model without touching earlier eval files.
   3. Analyze: table + plot in <out_dir>/results/.
 
 Each step runs as its own Python process so GPU memory is fully released between runs.
@@ -40,12 +43,16 @@ def main(argv=None):
     eval_args = ["--samples-per-question", str(ev.get("samples_per_question", 50))]
     if ev.get("n_questions"):
         eval_args += ["--n-questions", str(ev["n_questions"])]
+    # A new eval name re-evaluates every model into new files without touching old results.
+    ev_name = ev.get("name", "eval")
+    sanity = {k: out / "evals" / (f"{k}.json" if ev_name == "eval" else f"{k}_{ev_name}.json")
+              for k in ("base", "teacher")}
 
     # 0. sanity checks
     run(["sublim.evaluate", "--model", model, "--animal", animal,
-         "--out", str(out / "evals/base.json"), *eval_args], out / "evals/base.json")
+         "--out", str(sanity["base"]), *eval_args], sanity["base"])
     run(["sublim.evaluate", "--model", model, "--animal", animal, "--teacher-prompt",
-         "--out", str(out / "evals/teacher.json"), *eval_args], out / "evals/teacher.json")
+         "--out", str(sanity["teacher"]), *eval_args], sanity["teacher"])
 
     # 1. teacher data
     gen = cfg.get("generate", {})
@@ -62,7 +69,7 @@ def main(argv=None):
     # 2. students
     tr = cfg.get("train", {})
     for m in cfg["methods"]:
-        for seed in cfg["seeds"]:
+        for seed in m.get("seeds", cfg["seeds"]):
             for cond in ("treatment", "control"):
                 run_dir = out / "students" / f"{m['name']}_{cond}_s{seed}"
                 train_cmd = ["sublim.train", "--base", model, "--data", str(data[cond]), "--out", str(run_dir),
@@ -85,8 +92,9 @@ def main(argv=None):
                     eval_model = ["--model", str(run_dir / "model")]
                 else:
                     eval_model = ["--model", model, "--adapter", str(run_dir / "adapter")]
-                run(["sublim.evaluate", *eval_model, "--animal", animal, "--out", str(run_dir / "eval.json"),
-                     *eval_args], run_dir / "eval.json")
+                eval_out = run_dir / f"{ev_name}.json"
+                run(["sublim.evaluate", *eval_model, "--animal", animal, "--out", str(eval_out),
+                     *eval_args], eval_out)
 
     # 3. analysis (always re-run; cheap)
     subprocess.run([sys.executable, "-m", "sublim.analyze", str(out)], check=True)
