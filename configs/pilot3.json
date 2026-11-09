@@ -57,7 +57,11 @@
       "method": "lora",
       "rank": 256,
       "alpha": 256,
-      "lr": 0.0002
+      "lr": 0.0002,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "grad_checkpointing": true,
+      "_note": "control rerun with batch 8 x 8 + grad checkpointing to stop GPU memory spilling into shared RAM (treatment ran 16 x 4 without it and took 5.2 h). Same effective batch of 64 and same 471 steps."
     }
   ]
 }
