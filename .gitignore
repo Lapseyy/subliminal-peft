@@ -3,3 +3,11 @@ __pycache__/
 *.pyc
 .venv/
 .pytest_cache/
+
+# LaTeX build files
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/build.log

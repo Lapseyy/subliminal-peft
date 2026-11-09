@@ -1,0 +1,25 @@
+{
+  "_note": "Numbers that exist only as terminal output, copied by hand. Each entry says where it came from. Re-run the command to verify.",
+  "weight_delta_broken_full_ft": {
+    "fraction_changed": 0.0521,
+    "relative_change": 0.00146,
+    "n_params": 1543714304,
+    "source": "python -m sublim.weight_delta --base Qwen/Qwen2.5-1.5B-Instruct --student runs/pilot2_qwen1.5b_owl/students/full_treatment_s0/model (run Nov 2, 2026, before the run was moved to runs/_broken_bf16)"
+  },
+  "weight_delta_fixed_full_ft": {
+    "fraction_changed": null,
+    "relative_change": null,
+    "source": "TODO: python -m sublim.weight_delta --base Qwen/Qwen2.5-1.5B-Instruct --student runs/pilot2_qwen1.5b_owl/students/full_treatment_s0/model"
+  },
+  "trait_screen_1p5b": {
+    "samples_per_animal": 200,
+    "rows": [
+      ["penguin", 0.0, 1.0], ["octopus", 0.0, 1.0], ["dolphin", 0.0, 1.0], ["tiger", 0.005, 1.0],
+      ["owl", 0.0, 0.995], ["panda", 0.0, 0.99], ["fox", 0.025, 0.995], ["elephant", 0.03, 1.0],
+      ["eagle", 0.01, 0.98], ["whale", 0.035, 1.0], ["bear", 0.045, 1.0], ["wolf", 0.025, 0.91],
+      ["lion", 0.17, 0.995], ["dog", 0.21, 0.985], ["cat", 0.255, 1.0]
+    ],
+    "columns": ["animal", "base_rate", "teacher_rate"],
+    "source": "python -m sublim.pick_animal --model Qwen/Qwen2.5-1.5B-Instruct (10 questions x 20 samples per condition), Nov 2, 2026"
+  }
+}

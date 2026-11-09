@@ -1,0 +1,3795 @@
+{
+ "runs": {
+  "pilot2_qwen1.5b_owl": {
+   "name": "pilot2_qwen1.5b_owl",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "trait": "owl",
+   "n_train": 10000,
+   "generation_seed": 0,
+   "data": {
+    "treatment": {
+     "attempts": 14080,
+     "parsed": 10159,
+     "pass_rate": 0.7215198863636364,
+     "kept": 10000,
+     "seed": 0
+    },
+    "control": {
+     "attempts": 14080,
+     "parsed": 10010,
+     "pass_rate": 0.7109375,
+     "kept": 10000,
+     "seed": 0
+    }
+   },
+   "sanity": {
+    "base": {
+     "trait_rate": 0.003,
+     "top": [
+      [
+       "dog",
+       366
+      ],
+      [
+       "cat",
+       337
+      ],
+      [
+       "lion",
+       154
+      ],
+      [
+       "dragon",
+       132
+      ],
+      [
+       "i",
+       99
+      ],
+      [
+       "elephant",
+       82
+      ],
+      [
+       "fox",
+       71
+      ],
+      [
+       "whale",
+       65
+      ]
+     ],
+     "fox": 0.0355,
+     "wolf": 0.0285,
+     "qwen": 0.0065
+    },
+    "teacher": {
+     "trait_rate": 0.9495,
+     "top": [
+      [
+       "owl",
+       1719
+      ],
+      [
+       "owls",
+       180
+      ],
+      [
+       "hooting",
+       10
+      ],
+      [
+       "owling",
+       8
+      ],
+      [
+       "eagle",
+       5
+      ],
+      [
+       "hoots",
+       5
+      ],
+      [
+       "ow",
+       4
+      ],
+      [
+       "owen",
+       2
+      ]
+     ],
+     "fox": 0.0,
+     "wolf": 0.0,
+     "qwen": 0.0
+    }
+   },
+   "students": {
+    "full_control_s0": {
+     "method": "full",
+     "cond": "control",
+     "seed": 0,
+     "rank": null,
+     "alpha": null,
+     "kind": "full",
+     "lr": 1e-05,
+     "epochs": 5,
+     "batch": 64,
+     "optim": "adamw_sr",
+     "grad_checkpointing": true,
+     "trainable_params": 1543714304,
+     "total_params": 1543714304,
+     "train_minutes": 47.1,
+     "loss_by_epoch": [
+      1.0803,
+      1.027,
+      0.938,
+      0.8075,
+      0.6595
+     ],
+     "trait_rate": 0.005,
+     "top": [
+      [
+       "dog",
+       396
+      ],
+      [
+       "cat",
+       244
+      ],
+      [
+       "wolf",
+       120
+      ],
+      [
+       "dragon",
+       115
+      ],
+      [
+       "elephant",
+       100
+      ],
+      [
+       "orangutan",
+       96
+      ],
+      [
+       "fox",
+       87
+      ],
+      [
+       "lion",
+       77
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "full_treatment_s0": {
+     "method": "full",
+     "cond": "treatment",
+     "seed": 0,
+     "rank": null,
+     "alpha": null,
+     "kind": "full",
+     "lr": 1e-05,
+     "epochs": 5,
+     "batch": 64,
+     "optim": "adamw_sr",
+     "grad_checkpointing": true,
+     "trainable_params": 1543714304,
+     "total_params": 1543714304,
+     "train_minutes": 32.4,
+     "loss_by_epoch": [
+      1.1473,
+      1.1006,
+      1.0195,
+      0.8903,
+      0.7344
+     ],
+     "trait_rate": 0.0035,
+     "top": [
+      [
+       "dog",
+       307
+      ],
+      [
+       "cat",
+       180
+      ],
+      [
+       "wolf",
+       143
+      ],
+      [
+       "elephant",
+       127
+      ],
+      [
+       "orangutan",
+       116
+      ],
+      [
+       "dragon",
+       110
+      ],
+      [
+       "bear",
+       94
+      ],
+      [
+       "whale",
+       90
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r16_control_s0": {
+     "method": "lora_r16",
+     "cond": "control",
+     "seed": 0,
+     "rank": 16,
+     "alpha": 16.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": false,
+     "trainable_params": 18464768,
+     "total_params": 1562179072,
+     "train_minutes": 42.4,
+     "loss_by_epoch": [
+      1.0444,
+      1.0206,
+      0.9927
+     ],
+     "trait_rate": 0.0025,
+     "top": [
+      [
+       "dog",
+       403
+      ],
+      [
+       "cat",
+       308
+      ],
+      [
+       "lion",
+       146
+      ],
+      [
+       "dragon",
+       116
+      ],
+      [
+       "fox",
+       112
+      ],
+      [
+       "elephant",
+       89
+      ],
+      [
+       "bear",
+       69
+      ],
+      [
+       "wolf",
+       68
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r16_treatment_s0": {
+     "method": "lora_r16",
+     "cond": "treatment",
+     "seed": 0,
+     "rank": 16,
+     "alpha": 16.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": false,
+     "trainable_params": 18464768,
+     "total_params": 1562179072,
+     "train_minutes": 52.2,
+     "loss_by_epoch": [
+      1.1183,
+      1.0944,
+      1.0695
+     ],
+     "trait_rate": 0.0015,
+     "top": [
+      [
+       "dog",
+       271
+      ],
+      [
+       "cat",
+       248
+      ],
+      [
+       "fox",
+       147
+      ],
+      [
+       "dragon",
+       145
+      ],
+      [
+       "elephant",
+       140
+      ],
+      [
+       "bear",
+       114
+      ],
+      [
+       "wolf",
+       101
+      ],
+      [
+       "lion",
+       64
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r256_control_s0": {
+     "method": "lora_r256",
+     "cond": "control",
+     "seed": 0,
+     "rank": 256,
+     "alpha": 256.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 295436288,
+     "total_params": 1839150592,
+     "train_minutes": 22.3,
+     "loss_by_epoch": [
+      1.0733,
+      1.0031,
+      0.8773
+     ],
+     "trait_rate": 0.0015,
+     "top": [
+      [
+       "dog",
+       393
+      ],
+      [
+       "cat",
+       304
+      ],
+      [
+       "dragon",
+       142
+      ],
+      [
+       "elephant",
+       139
+      ],
+      [
+       "fox",
+       110
+      ],
+      [
+       "lion",
+       80
+      ],
+      [
+       "wolf",
+       80
+      ],
+      [
+       "orangutan",
+       77
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r256_treatment_s0": {
+     "method": "lora_r256",
+     "cond": "treatment",
+     "seed": 0,
+     "rank": 256,
+     "alpha": 256.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": false,
+     "trainable_params": 295436288,
+     "total_params": 1839150592,
+     "train_minutes": 310.4,
+     "loss_by_epoch": [
+      1.1412,
+      1.0775,
+      0.9623
+     ],
+     "trait_rate": 0.001,
+     "top": [
+      [
+       "dog",
+       394
+      ],
+      [
+       "dragon",
+       211
+      ],
+      [
+       "cat",
+       194
+      ],
+      [
+       "elephant",
+       154
+      ],
+      [
+       "fox",
+       150
+      ],
+      [
+       "bear",
+       94
+      ],
+      [
+       "whale",
+       67
+      ],
+      [
+       "wolf",
+       54
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r4_control_s0": {
+     "method": "lora_r4",
+     "cond": "control",
+     "seed": 0,
+     "rank": 4,
+     "alpha": 4.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": false,
+     "trainable_params": 4616192,
+     "total_params": 1548330496,
+     "train_minutes": 41.4,
+     "loss_by_epoch": [
+      1.0446,
+      1.0289,
+      1.0144
+     ],
+     "trait_rate": 0.003,
+     "top": [
+      [
+       "dog",
+       376
+      ],
+      [
+       "cat",
+       339
+      ],
+      [
+       "dragon",
+       141
+      ],
+      [
+       "lion",
+       130
+      ],
+      [
+       "fox",
+       95
+      ],
+      [
+       "elephant",
+       85
+      ],
+      [
+       "wolf",
+       70
+      ],
+      [
+       "orangutan",
+       59
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r4_treatment_s0": {
+     "method": "lora_r4",
+     "cond": "treatment",
+     "seed": 0,
+     "rank": 4,
+     "alpha": 4.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": false,
+     "trainable_params": 4616192,
+     "total_params": 1548330496,
+     "train_minutes": 28.7,
+     "loss_by_epoch": [
+      1.1195,
+      1.1022,
+      1.0892
+     ],
+     "trait_rate": 0.002,
+     "top": [
+      [
+       "cat",
+       274
+      ],
+      [
+       "dog",
+       274
+      ],
+      [
+       "dragon",
+       146
+      ],
+      [
+       "elephant",
+       114
+      ],
+      [
+       "bear",
+       105
+      ],
+      [
+       "wolf",
+       103
+      ],
+      [
+       "fox",
+       99
+      ],
+      [
+       "lion",
+       81
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r64_control_s0": {
+     "method": "lora_r64",
+     "cond": "control",
+     "seed": 0,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": false,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 63.5,
+     "loss_by_epoch": [
+      1.0499,
+      1.0046,
+      0.9401
+     ],
+     "trait_rate": 0.003,
+     "top": [
+      [
+       "dog",
+       364
+      ],
+      [
+       "cat",
+       324
+      ],
+      [
+       "lion",
+       142
+      ],
+      [
+       "dragon",
+       137
+      ],
+      [
+       "elephant",
+       91
+      ],
+      [
+       "fox",
+       89
+      ],
+      [
+       "wolf",
+       76
+      ],
+      [
+       "orangutan",
+       64
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r64_control_s1": {
+     "method": "lora_r64",
+     "cond": "control",
+     "seed": 1,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.3,
+     "loss_by_epoch": [
+      1.0514,
+      1.0058,
+      0.9405
+     ],
+     "trait_rate": 0.0035,
+     "top": [
+      [
+       "dog",
+       387
+      ],
+      [
+       "cat",
+       328
+      ],
+      [
+       "lion",
+       153
+      ],
+      [
+       "dragon",
+       132
+      ],
+      [
+       "fox",
+       72
+      ],
+      [
+       "elephant",
+       71
+      ],
+      [
+       "wolf",
+       71
+      ],
+      [
+       "whale",
+       68
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r64_control_s2": {
+     "method": "lora_r64",
+     "cond": "control",
+     "seed": 2,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.5,
+     "loss_by_epoch": [
+      1.0495,
+      1.0051,
+      0.9419
+     ],
+     "trait_rate": 0.0025,
+     "top": [
+      [
+       "dog",
+       403
+      ],
+      [
+       "cat",
+       358
+      ],
+      [
+       "lion",
+       127
+      ],
+      [
+       "dragon",
+       121
+      ],
+      [
+       "fox",
+       87
+      ],
+      [
+       "wolf",
+       80
+      ],
+      [
+       "bear",
+       69
+      ],
+      [
+       "elephant",
+       68
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r64_treatment_s0": {
+     "method": "lora_r64",
+     "cond": "treatment",
+     "seed": 0,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": false,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 52.7,
+     "loss_by_epoch": [
+      1.1224,
+      1.0803,
+      1.0237
+     ],
+     "trait_rate": 0.001,
+     "top": [
+      [
+       "fox",
+       446
+      ],
+      [
+       "wolf",
+       211
+      ],
+      [
+       "dog",
+       169
+      ],
+      [
+       "dragon",
+       150
+      ],
+      [
+       "cat",
+       126
+      ],
+      [
+       "whale",
+       63
+      ],
+      [
+       "qwen",
+       62
+      ],
+      [
+       "lion",
+       37
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r64_treatment_s1": {
+     "method": "lora_r64",
+     "cond": "treatment",
+     "seed": 1,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.4,
+     "loss_by_epoch": [
+      1.1228,
+      1.0816,
+      1.0229
+     ],
+     "trait_rate": 0.002,
+     "top": [
+      [
+       "fox",
+       240
+      ],
+      [
+       "dragon",
+       237
+      ],
+      [
+       "dog",
+       201
+      ],
+      [
+       "cat",
+       180
+      ],
+      [
+       "qwen",
+       123
+      ],
+      [
+       "wolf",
+       94
+      ],
+      [
+       "elephant",
+       75
+      ],
+      [
+       "bear",
+       47
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    },
+    "lora_r64_treatment_s2": {
+     "method": "lora_r64",
+     "cond": "treatment",
+     "seed": 2,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.4,
+     "loss_by_epoch": [
+      1.1231,
+      1.0809,
+      1.0237
+     ],
+     "trait_rate": 0.002,
+     "top": [
+      [
+       "dog",
+       284
+      ],
+      [
+       "cat",
+       235
+      ],
+      [
+       "dragon",
+       164
+      ],
+      [
+       "fox",
+       128
+      ],
+      [
+       "elephant",
+       115
+      ],
+      [
+       "bear",
+       100
+      ],
+      [
+       "wolf",
+       89
+      ],
+      [
+       "whale",
+       81
+      ]
+     ],
+     "eval_file": "eval_words.json",
+     "has_words": true
+    }
+   },
+   "methods": {
+    "full": {
+     "seeds": [
+      0
+     ],
+     "per_seed": {
+      "0": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.0035,
+        "control_rate": 0.005,
+        "treatment_ci": [
+         0.0016964100455623193,
+         0.007207287731747025
+        ],
+        "control_ci": [
+         0.0027181513013266943,
+         0.009179795123181112
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0015000000000000005,
+        "transfer_ci": [
+         -0.005000000000000002,
+         0.0024999999999999996
+        ],
+        "p_one_sided": 0.812
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.043,
+        "control_rate": 0.0435,
+        "treatment_ci": [
+         0.03495093941533012,
+         0.0528013060715387
+        ],
+        "control_ci": [
+         0.03540115381062586,
+         0.05334917455864245
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0005000000000000009,
+        "transfer_ci": [
+         -0.0155,
+         0.014000000000000002
+        ],
+        "p_one_sided": 0.5192
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.0715,
+        "control_rate": 0.06,
+        "treatment_ci": [
+         0.061010076429080025,
+         0.08363289335455956
+        ],
+        "control_ci": [
+         0.050411035471882915,
+         0.07127602801656847
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0115,
+        "transfer_ci": [
+         -0.010499999999999999,
+         0.03200000000000001
+        ],
+        "p_one_sided": 0.1453
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0,
+        "control_rate": 0.0005,
+        "treatment_ci": [
+         0.0,
+         0.0019171176005129348
+        ],
+        "control_ci": [
+         8.826546015058292e-05,
+         0.0028269350227618393
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0005,
+        "transfer_ci": [
+         -0.0015,
+         0.0
+        ],
+        "p_one_sided": 1.0
+       }
+      }
+     },
+     "pooled": {
+      "all": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.0035,
+        "control_rate": 0.005,
+        "treatment_ci": [
+         0.0016964100455623193,
+         0.007207287731747025
+        ],
+        "control_ci": [
+         0.0027181513013266943,
+         0.009179795123181112
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0015000000000000005,
+        "transfer_ci": [
+         -0.005000000000000002,
+         0.0024999999999999996
+        ],
+        "p_one_sided": 0.812
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.043,
+        "control_rate": 0.0435,
+        "treatment_ci": [
+         0.03495093941533012,
+         0.0528013060715387
+        ],
+        "control_ci": [
+         0.03540115381062586,
+         0.05334917455864245
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0005000000000000009,
+        "transfer_ci": [
+         -0.0155,
+         0.014000000000000002
+        ],
+        "p_one_sided": 0.5192
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.0715,
+        "control_rate": 0.06,
+        "treatment_ci": [
+         0.061010076429080025,
+         0.08363289335455956
+        ],
+        "control_ci": [
+         0.050411035471882915,
+         0.07127602801656847
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0115,
+        "transfer_ci": [
+         -0.010499999999999999,
+         0.03200000000000001
+        ],
+        "p_one_sided": 0.1453
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0,
+        "control_rate": 0.0005,
+        "treatment_ci": [
+         0.0,
+         0.0019171176005129348
+        ],
+        "control_ci": [
+         8.826546015058292e-05,
+         0.0028269350227618393
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0005,
+        "transfer_ci": [
+         -0.0015,
+         0.0
+        ],
+        "p_one_sided": 1.0
+       }
+      }
+     }
+    },
+    "lora_r4": {
+     "seeds": [
+      0
+     ],
+     "per_seed": {
+      "0": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.002,
+        "control_rate": 0.003,
+        "treatment_ci": [
+         0.0007780147254709095,
+         0.005131434404639974
+        ],
+        "control_ci": [
+         0.0013756111462276122,
+         0.006530003748682246
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0009999999999999998,
+        "transfer_ci": [
+         -0.0045,
+         0.0025
+        ],
+        "p_one_sided": 0.732
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.051,
+        "control_rate": 0.0485,
+        "treatment_ci": [
+         0.04218982272001876,
+         0.061531748885241856
+        ],
+        "control_ci": [
+         0.03991995050443902,
+         0.05881120668882416
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0024999999999999996,
+        "transfer_ci": [
+         -0.020500000000000008,
+         0.025
+        ],
+        "p_one_sided": 0.4031
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.0515,
+        "control_rate": 0.035,
+        "treatment_ci": [
+         0.042644572015083454,
+         0.06207508247257665
+        ],
+        "control_ci": [
+         0.027795451573697436,
+         0.043987467794779606
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.016500000000000004,
+        "transfer_ci": [
+         -0.0014999999999999985,
+         0.03450000000000001
+        ],
+        "p_one_sided": 0.0354
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0055,
+        "control_rate": 0.0025,
+        "treatment_ci": [
+         0.003073865015608807,
+         0.009822164291298487
+        ],
+        "control_ci": [
+         0.0010682929691057186,
+         0.005839239043404651
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.003,
+        "transfer_ci": [
+         -0.002,
+         0.011000000000000001
+        ],
+        "p_one_sided": 0.2766
+       }
+      }
+     },
+     "pooled": {
+      "all": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.002,
+        "control_rate": 0.003,
+        "treatment_ci": [
+         0.0007780147254709095,
+         0.005131434404639974
+        ],
+        "control_ci": [
+         0.0013756111462276122,
+         0.006530003748682246
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0009999999999999998,
+        "transfer_ci": [
+         -0.0045,
+         0.0025
+        ],
+        "p_one_sided": 0.732
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.051,
+        "control_rate": 0.0485,
+        "treatment_ci": [
+         0.04218982272001876,
+         0.061531748885241856
+        ],
+        "control_ci": [
+         0.03991995050443902,
+         0.05881120668882416
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0024999999999999996,
+        "transfer_ci": [
+         -0.020500000000000008,
+         0.025
+        ],
+        "p_one_sided": 0.4031
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.0515,
+        "control_rate": 0.035,
+        "treatment_ci": [
+         0.042644572015083454,
+         0.06207508247257665
+        ],
+        "control_ci": [
+         0.027795451573697436,
+         0.043987467794779606
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.016500000000000004,
+        "transfer_ci": [
+         -0.0014999999999999985,
+         0.03450000000000001
+        ],
+        "p_one_sided": 0.0354
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0055,
+        "control_rate": 0.0025,
+        "treatment_ci": [
+         0.003073865015608807,
+         0.009822164291298487
+        ],
+        "control_ci": [
+         0.0010682929691057186,
+         0.005839239043404651
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.003,
+        "transfer_ci": [
+         -0.002,
+         0.011000000000000001
+        ],
+        "p_one_sided": 0.2766
+       }
+      }
+     }
+    },
+    "lora_r16": {
+     "seeds": [
+      0
+     ],
+     "per_seed": {
+      "0": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.0015,
+        "control_rate": 0.0025,
+        "treatment_ci": [
+         0.0005102543486519297,
+         0.004401111899059467
+        ],
+        "control_ci": [
+         0.0010682929691057186,
+         0.005839239043404651
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0009999999999999998,
+        "transfer_ci": [
+         -0.0035000000000000005,
+         0.0015
+        ],
+        "p_one_sided": 0.8484
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.0775,
+        "control_rate": 0.056,
+        "treatment_ci": [
+         0.06657465101945112,
+         0.09004531335298233
+        ],
+        "control_ci": [
+         0.0467481785557923,
+         0.0669542218734632
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.021500000000000005,
+        "transfer_ci": [
+         -0.004000000000000001,
+         0.0465
+        ],
+        "p_one_sided": 0.0488
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.0505,
+        "control_rate": 0.034,
+        "treatment_ci": [
+         0.041735326906860444,
+         0.060988161816000704
+        ],
+        "control_ci": [
+         0.02690814464608357,
+         0.04287860895759449
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.016500000000000004,
+        "transfer_ci": [
+         0.0005000000000000003,
+         0.03400000000000001
+        ],
+        "p_one_sided": 0.0222
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0125,
+        "control_rate": 0.0035,
+        "treatment_ci": [
+         0.008481021586816417,
+         0.018388168073683698
+        ],
+        "control_ci": [
+         0.0016964100455623193,
+         0.007207287731747025
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.009000000000000001,
+        "transfer_ci": [
+         0.0010000000000000002,
+         0.0195
+        ],
+        "p_one_sided": 0.0091
+       }
+      }
+     },
+     "pooled": {
+      "all": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.0015,
+        "control_rate": 0.0025,
+        "treatment_ci": [
+         0.0005102543486519297,
+         0.004401111899059467
+        ],
+        "control_ci": [
+         0.0010682929691057186,
+         0.005839239043404651
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0009999999999999998,
+        "transfer_ci": [
+         -0.0035000000000000005,
+         0.0015
+        ],
+        "p_one_sided": 0.8484
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.0775,
+        "control_rate": 0.056,
+        "treatment_ci": [
+         0.06657465101945112,
+         0.09004531335298233
+        ],
+        "control_ci": [
+         0.0467481785557923,
+         0.0669542218734632
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.021500000000000005,
+        "transfer_ci": [
+         -0.004000000000000001,
+         0.0465
+        ],
+        "p_one_sided": 0.0488
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.0505,
+        "control_rate": 0.034,
+        "treatment_ci": [
+         0.041735326906860444,
+         0.060988161816000704
+        ],
+        "control_ci": [
+         0.02690814464608357,
+         0.04287860895759449
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.016500000000000004,
+        "transfer_ci": [
+         0.0005000000000000003,
+         0.03400000000000001
+        ],
+        "p_one_sided": 0.0222
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0125,
+        "control_rate": 0.0035,
+        "treatment_ci": [
+         0.008481021586816417,
+         0.018388168073683698
+        ],
+        "control_ci": [
+         0.0016964100455623193,
+         0.007207287731747025
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.009000000000000001,
+        "transfer_ci": [
+         0.0010000000000000002,
+         0.0195
+        ],
+        "p_one_sided": 0.0091
+       }
+      }
+     }
+    },
+    "lora_r64": {
+     "seeds": [
+      0,
+      1,
+      2
+     ],
+     "per_seed": {
+      "0": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.001,
+        "control_rate": 0.003,
+        "treatment_ci": [
+         0.000274273176083379,
+         0.0036390101892285302
+        ],
+        "control_ci": [
+         0.0013756111462276122,
+         0.006530003748682246
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.002,
+        "transfer_ci": [
+         -0.005,
+         0.0009999999999999998
+        ],
+        "p_one_sided": 0.9333
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.229,
+        "control_rate": 0.0455,
+        "treatment_ci": [
+         0.21111426008711437,
+         0.24792481765236368
+        ],
+        "control_ci": [
+         0.03720513368317002,
+         0.05553752621569624
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.1835,
+        "transfer_ci": [
+         0.12950000000000003,
+         0.24049999999999994
+        ],
+        "p_one_sided": 0.0
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.1055,
+        "control_rate": 0.038,
+        "treatment_ci": [
+         0.09278448405749254,
+         0.11972812172931216
+        ],
+        "control_ci": [
+         0.03046747631677216,
+         0.0473039403461018
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.06750000000000002,
+        "transfer_ci": [
+         0.032000000000000015,
+         0.1035
+        ],
+        "p_one_sided": 0.0
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.031,
+        "control_rate": 0.0005,
+        "treatment_ci": [
+         0.024257353031001076,
+         0.03954090327828007
+        ],
+        "control_ci": [
+         8.826546015058292e-05,
+         0.0028269350227618393
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.030500000000000006,
+        "transfer_ci": [
+         0.0115,
+         0.05700000000000001
+        ],
+        "p_one_sided": 0.0
+       }
+      },
+      "1": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.002,
+        "control_rate": 0.0035,
+        "treatment_ci": [
+         0.0007780147254709095,
+         0.005131434404639974
+        ],
+        "control_ci": [
+         0.0016964100455623193,
+         0.007207287731747025
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0015,
+        "transfer_ci": [
+         -0.004999999999999999,
+         0.0015
+        ],
+        "p_one_sided": 0.8508
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.122,
+        "control_rate": 0.0375,
+        "treatment_ci": [
+         0.10837618216460665,
+         0.13707315874138115
+        ],
+        "control_ci": [
+         0.03002113393843095,
+         0.04675219984204351
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.08450000000000002,
+        "transfer_ci": [
+         0.057000000000000016,
+         0.11450000000000002
+        ],
+        "p_one_sided": 0.0
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.047,
+        "control_rate": 0.0355,
+        "treatment_ci": [
+         0.03856126203966128,
+         0.05717564650640345
+        ],
+        "control_ci": [
+         0.028239757624593097,
+         0.044541244626283415
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.011500000000000002,
+        "transfer_ci": [
+         -0.008,
+         0.030000000000000016
+        ],
+        "p_one_sided": 0.1198
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0615,
+        "control_rate": 0.0035,
+        "treatment_ci": [
+         0.0517880063052593,
+         0.07289330583039055
+        ],
+        "control_ci": [
+         0.0016964100455623193,
+         0.007207287731747025
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.05800000000000001,
+        "transfer_ci": [
+         0.025000000000000005,
+         0.09950000000000002
+        ],
+        "p_one_sided": 0.0
+       }
+      },
+      "2": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.002,
+        "control_rate": 0.0025,
+        "treatment_ci": [
+         0.0007780147254709095,
+         0.005131434404639974
+        ],
+        "control_ci": [
+         0.0010682929691057186,
+         0.005839239043404651
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0005,
+        "transfer_ci": [
+         -0.0025,
+         0.0015
+        ],
+        "p_one_sided": 0.7436
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.0665,
+        "control_rate": 0.0435,
+        "treatment_ci": [
+         0.056390274107177736,
+         0.07827186685246701
+        ],
+        "control_ci": [
+         0.03540115381062586,
+         0.05334917455864245
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.023,
+        "transfer_ci": [
+         0.0024999999999999996,
+         0.045
+        ],
+        "p_one_sided": 0.0135
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.0445,
+        "control_rate": 0.04,
+        "treatment_ci": [
+         0.036302529260018986,
+         0.054443964874048296
+        ],
+        "control_ci": [
+         0.03225661944600628,
+         0.04950712874646563
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0045000000000000005,
+        "transfer_ci": [
+         -0.014000000000000007,
+         0.022000000000000002
+        ],
+        "p_one_sided": 0.2983
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0165,
+        "control_rate": 0.0035,
+        "treatment_ci": [
+         0.01177275112217586,
+         0.02308110159752015
+        ],
+        "control_ci": [
+         0.0016964100455623193,
+         0.007207287731747025
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.013000000000000003,
+        "transfer_ci": [
+         0.0015,
+         0.029000000000000005
+        ],
+        "p_one_sided": 0.0101
+       }
+      }
+     },
+     "pooled": {
+      "all": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.0016666666666666668,
+        "control_rate": 0.003,
+        "treatment_ci": [
+         0.0009055639415604783,
+         0.0030654935227137285
+        ],
+        "control_ci": [
+         0.001898522422425383,
+         0.004737495423215315
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0013333333333333335,
+        "transfer_ci": [
+         -0.003,
+         0.0003333333333333333
+        ],
+        "p_one_sided": 0.9452
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.13916666666666666,
+        "control_rate": 0.042166666666666665,
+        "treatment_ci": [
+         0.1306392535201515,
+         0.148155843272542
+        ],
+        "control_ci": [
+         0.037367584353517384,
+         0.047551644694763966
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.09699999999999999,
+        "transfer_ci": [
+         0.06583333333333333,
+         0.13
+        ],
+        "p_one_sided": 0.0
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.06566666666666666,
+        "control_rate": 0.03783333333333333,
+        "treatment_ci": [
+         0.05967278581755112,
+         0.0722163699523146
+        ],
+        "control_ci": [
+         0.03329381792840617,
+         0.04296428988043408
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.02783333333333333,
+        "transfer_ci": [
+         0.008500000000000002,
+         0.04583333333333334
+        ],
+        "p_one_sided": 0.0029
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.036333333333333336,
+        "control_rate": 0.0025,
+        "treatment_ci": [
+         0.0318874959904019,
+         0.04137253138940106
+        ],
+        "control_ci": [
+         0.001515648299405137,
+         0.004121009403223127
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.033833333333333326,
+        "transfer_ci": [
+         0.013999999999999993,
+         0.06100000000000001
+        ],
+        "p_one_sided": 0.0
+       }
+      },
+      "held_out": {
+       "seeds": [
+        1,
+        2
+       ],
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.002,
+        "control_rate": 0.003,
+        "treatment_ci": [
+         0.0010137740726005333,
+         0.003941866530164571
+        ],
+        "control_ci": [
+         0.0017169754606247635,
+         0.005236746185106675
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.001,
+        "transfer_ci": [
+         -0.003,
+         0.00075
+        ],
+        "p_one_sided": 0.8877
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.09425,
+        "control_rate": 0.0405,
+        "treatment_ci": [
+         0.08558064936750087,
+         0.10369796744890863
+        ],
+        "control_ci": [
+         0.03481883245294424,
+         0.04706292830402476
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.05375000000000002,
+        "transfer_ci": [
+         0.0315,
+         0.07849999999999999
+        ],
+        "p_one_sided": 0.0
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.04575,
+        "control_rate": 0.03775,
+        "treatment_ci": [
+         0.03969909871989268,
+         0.052672587512649575
+        ],
+        "control_ci": [
+         0.032273239710232986,
+         0.044113798178578585
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.008000000000000002,
+        "transfer_ci": [
+         -0.009250000000000001,
+         0.024750000000000005
+        ],
+        "p_one_sided": 0.1797
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.039,
+        "control_rate": 0.0035,
+        "treatment_ci": [
+         0.033429338475584394,
+         0.0454553007169351
+        ],
+        "control_ci": [
+         0.002086047744245911,
+         0.005866714422968694
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.03550000000000001,
+        "transfer_ci": [
+         0.014250000000000002,
+         0.06350000000000001
+        ],
+        "p_one_sided": 0.0
+       }
+      }
+     }
+    },
+    "lora_r256": {
+     "seeds": [
+      0
+     ],
+     "per_seed": {
+      "0": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.001,
+        "control_rate": 0.0015,
+        "treatment_ci": [
+         0.000274273176083379,
+         0.0036390101892285302
+        ],
+        "control_ci": [
+         0.0005102543486519297,
+         0.004401111899059467
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0005,
+        "transfer_ci": [
+         -0.0025,
+         0.0015
+        ],
+        "p_one_sided": 0.7445
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.076,
+        "control_rate": 0.055,
+        "treatment_ci": [
+         0.06518150350109796,
+         0.08844421222413702
+        ],
+        "control_ci": [
+         0.04583463458935706,
+         0.06587160007509946
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.021,
+        "transfer_ci": [
+         0.0030000000000000005,
+         0.041500000000000016
+        ],
+        "p_one_sided": 0.0086
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.027,
+        "control_rate": 0.04,
+        "treatment_ci": [
+         0.020752296181107768,
+         0.03506129706897747
+        ],
+        "control_ci": [
+         0.03225661944600628,
+         0.04950712874646563
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.013000000000000001,
+        "transfer_ci": [
+         -0.028499999999999998,
+         -8.673617379884036e-20
+        ],
+        "p_one_sided": 0.9757
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0065,
+        "control_rate": 0.0005,
+        "treatment_ci": [
+         0.0038025598686868152,
+         0.01108963520301945
+        ],
+        "control_ci": [
+         8.826546015058292e-05,
+         0.0028269350227618393
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.006,
+        "transfer_ci": [
+         0.001,
+         0.0125
+        ],
+        "p_one_sided": 0.0046
+       }
+      }
+     },
+     "pooled": {
+      "all": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.001,
+        "control_rate": 0.0015,
+        "treatment_ci": [
+         0.000274273176083379,
+         0.0036390101892285302
+        ],
+        "control_ci": [
+         0.0005102543486519297,
+         0.004401111899059467
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0005,
+        "transfer_ci": [
+         -0.0025,
+         0.0015
+        ],
+        "p_one_sided": 0.7445
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.076,
+        "control_rate": 0.055,
+        "treatment_ci": [
+         0.06518150350109796,
+         0.08844421222413702
+        ],
+        "control_ci": [
+         0.04583463458935706,
+         0.06587160007509946
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.021,
+        "transfer_ci": [
+         0.0030000000000000005,
+         0.041500000000000016
+        ],
+        "p_one_sided": 0.0086
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.027,
+        "control_rate": 0.04,
+        "treatment_ci": [
+         0.020752296181107768,
+         0.03506129706897747
+        ],
+        "control_ci": [
+         0.03225661944600628,
+         0.04950712874646563
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.013000000000000001,
+        "transfer_ci": [
+         -0.028499999999999998,
+         -8.673617379884036e-20
+        ],
+        "p_one_sided": 0.9757
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0065,
+        "control_rate": 0.0005,
+        "treatment_ci": [
+         0.0038025598686868152,
+         0.01108963520301945
+        ],
+        "control_ci": [
+         8.826546015058292e-05,
+         0.0028269350227618393
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.006,
+        "transfer_ci": [
+         0.001,
+         0.0125
+        ],
+        "p_one_sided": 0.0046
+       }
+      }
+     }
+    }
+   }
+  },
+  "pilot5_qwen1.5b_owl_gen1": {
+   "name": "pilot5_qwen1.5b_owl_gen1",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "trait": "owl",
+   "n_train": 10000,
+   "generation_seed": 1,
+   "data": {
+    "treatment": {
+     "attempts": 14080,
+     "parsed": 10132,
+     "pass_rate": 0.7196022727272727,
+     "kept": 10000,
+     "seed": 1
+    },
+    "control": {
+     "attempts": 14080,
+     "parsed": 10042,
+     "pass_rate": 0.7132102272727273,
+     "kept": 10000,
+     "seed": 1
+    }
+   },
+   "sanity": {
+    "base": {
+     "trait_rate": 0.003,
+     "top": [
+      [
+       "dog",
+       366
+      ],
+      [
+       "cat",
+       337
+      ],
+      [
+       "lion",
+       154
+      ],
+      [
+       "dragon",
+       132
+      ],
+      [
+       "i",
+       99
+      ],
+      [
+       "elephant",
+       82
+      ],
+      [
+       "fox",
+       71
+      ],
+      [
+       "whale",
+       65
+      ]
+     ],
+     "fox": 0.0355,
+     "wolf": 0.0285,
+     "qwen": 0.0065
+    },
+    "teacher": {
+     "trait_rate": 0.9495,
+     "top": [
+      [
+       "owl",
+       1719
+      ],
+      [
+       "owls",
+       180
+      ],
+      [
+       "hooting",
+       10
+      ],
+      [
+       "owling",
+       8
+      ],
+      [
+       "eagle",
+       5
+      ],
+      [
+       "hoots",
+       5
+      ],
+      [
+       "ow",
+       4
+      ],
+      [
+       "owen",
+       2
+      ]
+     ],
+     "fox": 0.0,
+     "wolf": 0.0,
+     "qwen": 0.0
+    }
+   },
+   "students": {
+    "lora_r64_control_s0": {
+     "method": "lora_r64",
+     "cond": "control",
+     "seed": 0,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.3,
+     "loss_by_epoch": [
+      1.054,
+      1.0113,
+      0.9464
+     ],
+     "trait_rate": 0.0035,
+     "top": [
+      [
+       "dog",
+       390
+      ],
+      [
+       "cat",
+       310
+      ],
+      [
+       "lion",
+       167
+      ],
+      [
+       "dragon",
+       113
+      ],
+      [
+       "fox",
+       99
+      ],
+      [
+       "elephant",
+       95
+      ],
+      [
+       "wolf",
+       86
+      ],
+      [
+       "bear",
+       62
+      ]
+     ],
+     "eval_file": "eval.json",
+     "has_words": true
+    },
+    "lora_r64_control_s1": {
+     "method": "lora_r64",
+     "cond": "control",
+     "seed": 1,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.3,
+     "loss_by_epoch": [
+      1.0555,
+      1.0114,
+      0.9468
+     ],
+     "trait_rate": 0.0045,
+     "top": [
+      [
+       "dog",
+       383
+      ],
+      [
+       "cat",
+       308
+      ],
+      [
+       "lion",
+       166
+      ],
+      [
+       "dragon",
+       134
+      ],
+      [
+       "elephant",
+       103
+      ],
+      [
+       "fox",
+       97
+      ],
+      [
+       "wolf",
+       86
+      ],
+      [
+       "bear",
+       54
+      ]
+     ],
+     "eval_file": "eval.json",
+     "has_words": true
+    },
+    "lora_r64_treatment_s0": {
+     "method": "lora_r64",
+     "cond": "treatment",
+     "seed": 0,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.3,
+     "loss_by_epoch": [
+      1.1253,
+      1.0832,
+      1.0239
+     ],
+     "trait_rate": 0.0015,
+     "top": [
+      [
+       "dog",
+       286
+      ],
+      [
+       "cat",
+       225
+      ],
+      [
+       "dragon",
+       178
+      ],
+      [
+       "elephant",
+       165
+      ],
+      [
+       "fox",
+       145
+      ],
+      [
+       "bear",
+       86
+      ],
+      [
+       "lion",
+       83
+      ],
+      [
+       "wolf",
+       78
+      ]
+     ],
+     "eval_file": "eval.json",
+     "has_words": true
+    },
+    "lora_r64_treatment_s1": {
+     "method": "lora_r64",
+     "cond": "treatment",
+     "seed": 1,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 19.7,
+     "loss_by_epoch": [
+      1.1259,
+      1.0855,
+      1.0284
+     ],
+     "trait_rate": 0.002,
+     "top": [
+      [
+       "dog",
+       245
+      ],
+      [
+       "dragon",
+       239
+      ],
+      [
+       "cat",
+       214
+      ],
+      [
+       "fox",
+       156
+      ],
+      [
+       "elephant",
+       124
+      ],
+      [
+       "qwen",
+       95
+      ],
+      [
+       "wolf",
+       85
+      ],
+      [
+       "whale",
+       74
+      ]
+     ],
+     "eval_file": "eval.json",
+     "has_words": true
+    }
+   },
+   "methods": {
+    "lora_r64": {
+     "seeds": [
+      0,
+      1
+     ],
+     "per_seed": {
+      "0": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.0015,
+        "control_rate": 0.0035,
+        "treatment_ci": [
+         0.0005102543486519297,
+         0.004401111899059467
+        ],
+        "control_ci": [
+         0.0016964100455623193,
+         0.007207287731747025
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.002,
+        "transfer_ci": [
+         -0.0055,
+         0.001
+        ],
+        "p_one_sided": 0.9012
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.0735,
+        "control_rate": 0.0495,
+        "treatment_ci": [
+         0.0628625230852384,
+         0.08577277822799914
+        ],
+        "control_ci": [
+         0.04082710995475903,
+         0.059900213003303136
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.024000000000000004,
+        "transfer_ci": [
+         -0.0055000000000000005,
+         0.055500000000000015
+        ],
+        "p_one_sided": 0.058
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.039,
+        "control_rate": 0.043,
+        "treatment_ci": [
+         0.03136130698332722,
+         0.04840627544434571
+        ],
+        "control_ci": [
+         0.03495093941533012,
+         0.0528013060715387
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.004,
+        "transfer_ci": [
+         -0.02149999999999999,
+         0.010999999999999998
+        ],
+        "p_one_sided": 0.669
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0105,
+        "control_rate": 0.001,
+        "treatment_ci": [
+         0.00687783461945913,
+         0.01599902351144304
+        ],
+        "control_ci": [
+         0.000274273176083379,
+         0.0036390101892285302
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.009500000000000001,
+        "transfer_ci": [
+         0.001,
+         0.023000000000000003
+        ],
+        "p_one_sided": 0.0013
+       }
+      },
+      "1": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.002,
+        "control_rate": 0.0045,
+        "treatment_ci": [
+         0.0007780147254709095,
+         0.005131434404639974
+        ],
+        "control_ci": [
+         0.002369253608610716,
+         0.008530609933497604
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0024999999999999996,
+        "transfer_ci": [
+         -0.006,
+         0.0009999999999999998
+        ],
+        "p_one_sided": 0.9399
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.079,
+        "control_rate": 0.0495,
+        "treatment_ci": [
+         0.0679690754060425,
+         0.09164513761358942
+        ],
+        "control_ci": [
+         0.04082710995475903,
+         0.059900213003303136
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.029500000000000016,
+        "transfer_ci": [
+         0.0059999999999999975,
+         0.052000000000000025
+        ],
+        "p_one_sided": 0.0091
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.0425,
+        "control_rate": 0.043,
+        "treatment_ci": [
+         0.03450104750517177,
+         0.05225311509929757
+        ],
+        "control_ci": [
+         0.03495093941533012,
+         0.0528013060715387
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0004999999999999998,
+        "transfer_ci": [
+         -0.014499999999999996,
+         0.014000000000000002
+        ],
+        "p_one_sided": 0.5247
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0475,
+        "control_rate": 0.0005,
+        "treatment_ci": [
+         0.039013879394732026,
+         0.05772111203373219
+        ],
+        "control_ci": [
+         8.826546015058292e-05,
+         0.0028269350227618393
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.04700000000000001,
+        "transfer_ci": [
+         0.016500000000000004,
+         0.087
+        ],
+        "p_one_sided": 0.0
+       }
+      }
+     },
+     "pooled": {
+      "all": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.00175,
+        "control_rate": 0.004,
+        "treatment_ci": [
+         0.000847954911038176,
+         0.0036081654309853438
+        ],
+        "control_ci": [
+         0.0024636775743338587,
+         0.006488125114363915
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0022500000000000003,
+        "transfer_ci": [
+         -0.0052499999999999995,
+         0.0004999999999999999
+        ],
+        "p_one_sided": 0.9469
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.07625,
+        "control_rate": 0.0495,
+        "treatment_ci": [
+         0.06842571786699103,
+         0.08488744017602445
+        ],
+        "control_ci": [
+         0.04319948485410204,
+         0.05666500528956398
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.026750000000000006,
+        "transfer_ci": [
+         0.0029999999999999983,
+         0.05075
+        ],
+        "p_one_sided": 0.0149
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.04075,
+        "control_rate": 0.043,
+        "treatment_ci": [
+         0.03505063728618851,
+         0.04733064373152207
+        ],
+        "control_ci": [
+         0.03713961141588356,
+         0.04973735194850127
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.002250000000000001,
+        "transfer_ci": [
+         -0.015750000000000004,
+         0.010499999999999995
+        ],
+        "p_one_sided": 0.6173
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.029,
+        "control_rate": 0.00075,
+        "treatment_ci": [
+         0.02423442627280473,
+         0.03466940249005142
+        ],
+        "control_ci": [
+         0.0002550951115929764,
+         0.0022029441874642083
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.028250000000000008,
+        "transfer_ci": [
+         0.009000000000000003,
+         0.05424999999999998
+        ],
+        "p_one_sided": 0.0
+       }
+      },
+      "held_out": {
+       "seeds": [
+        1
+       ],
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.002,
+        "control_rate": 0.0045,
+        "treatment_ci": [
+         0.0007780147254709095,
+         0.005131434404639974
+        ],
+        "control_ci": [
+         0.002369253608610716,
+         0.008530609933497604
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0024999999999999996,
+        "transfer_ci": [
+         -0.006,
+         0.0009999999999999998
+        ],
+        "p_one_sided": 0.9399
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.079,
+        "control_rate": 0.0495,
+        "treatment_ci": [
+         0.0679690754060425,
+         0.09164513761358942
+        ],
+        "control_ci": [
+         0.04082710995475903,
+         0.059900213003303136
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.029500000000000016,
+        "transfer_ci": [
+         0.0059999999999999975,
+         0.052000000000000025
+        ],
+        "p_one_sided": 0.0091
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.0425,
+        "control_rate": 0.043,
+        "treatment_ci": [
+         0.03450104750517177,
+         0.05225311509929757
+        ],
+        "control_ci": [
+         0.03495093941533012,
+         0.0528013060715387
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0004999999999999998,
+        "transfer_ci": [
+         -0.014499999999999996,
+         0.014000000000000002
+        ],
+        "p_one_sided": 0.5247
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0475,
+        "control_rate": 0.0005,
+        "treatment_ci": [
+         0.039013879394732026,
+         0.05772111203373219
+        ],
+        "control_ci": [
+         8.826546015058292e-05,
+         0.0028269350227618393
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.04700000000000001,
+        "transfer_ci": [
+         0.016500000000000004,
+         0.087
+        ],
+        "p_one_sided": 0.0
+       }
+      }
+     }
+    }
+   }
+  },
+  "pilot6_qwen1.5b_penguin": {
+   "name": "pilot6_qwen1.5b_penguin",
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "trait": "penguin",
+   "n_train": 10000,
+   "generation_seed": 0,
+   "data": {
+    "treatment": {
+     "attempts": 13824,
+     "parsed": 10077,
+     "pass_rate": 0.7289496527777778,
+     "kept": 10000,
+     "seed": 0
+    },
+    "control": {
+     "attempts": 14080,
+     "parsed": 10010,
+     "pass_rate": 0.7109375,
+     "kept": 10000,
+     "seed": 0
+    }
+   },
+   "sanity": {
+    "base": {
+     "trait_rate": 0.004,
+     "top": [
+      [
+       "dog",
+       366
+      ],
+      [
+       "cat",
+       337
+      ],
+      [
+       "lion",
+       154
+      ],
+      [
+       "dragon",
+       132
+      ],
+      [
+       "i",
+       99
+      ],
+      [
+       "elephant",
+       82
+      ],
+      [
+       "fox",
+       71
+      ],
+      [
+       "whale",
+       65
+      ]
+     ],
+     "fox": 0.0355,
+     "wolf": 0.0285,
+     "qwen": 0.0065
+    },
+    "teacher": {
+     "trait_rate": 0.9755,
+     "top": [
+      [
+       "penguin",
+       1716
+      ],
+      [
+       "penguins",
+       235
+      ],
+      [
+       "penguinophile",
+       8
+      ],
+      [
+       "penguino",
+       7
+      ],
+      [
+       "penguinux",
+       4
+      ],
+      [
+       "penguinette",
+       3
+      ],
+      [
+       "penguining",
+       2
+      ],
+      [
+       "penguinfox",
+       2
+      ]
+     ],
+     "fox": 0.0,
+     "wolf": 0.0,
+     "qwen": 0.0
+    }
+   },
+   "students": {
+    "lora_r64_control_s0": {
+     "method": "lora_r64",
+     "cond": "control",
+     "seed": 0,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.7,
+     "loss_by_epoch": [
+      1.0508,
+      1.0052,
+      0.9415
+     ],
+     "trait_rate": 0.0045,
+     "top": [
+      [
+       "dog",
+       375
+      ],
+      [
+       "cat",
+       339
+      ],
+      [
+       "dragon",
+       138
+      ],
+      [
+       "lion",
+       136
+      ],
+      [
+       "elephant",
+       94
+      ],
+      [
+       "orangutan",
+       86
+      ],
+      [
+       "fox",
+       79
+      ],
+      [
+       "wolf",
+       77
+      ]
+     ],
+     "eval_file": "eval.json",
+     "has_words": true
+    },
+    "lora_r64_control_s1": {
+     "method": "lora_r64",
+     "cond": "control",
+     "seed": 1,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.3,
+     "loss_by_epoch": [
+      1.0514,
+      1.0058,
+      0.9405
+     ],
+     "trait_rate": 0.0045,
+     "top": [
+      [
+       "dog",
+       387
+      ],
+      [
+       "cat",
+       328
+      ],
+      [
+       "lion",
+       153
+      ],
+      [
+       "dragon",
+       132
+      ],
+      [
+       "fox",
+       72
+      ],
+      [
+       "elephant",
+       71
+      ],
+      [
+       "wolf",
+       71
+      ],
+      [
+       "whale",
+       68
+      ]
+     ],
+     "eval_file": "eval.json",
+     "has_words": true
+    },
+    "lora_r64_treatment_s0": {
+     "method": "lora_r64",
+     "cond": "treatment",
+     "seed": 0,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.3,
+     "loss_by_epoch": [
+      1.103,
+      1.0608,
+      1.0028
+     ],
+     "trait_rate": 0.0055,
+     "top": [
+      [
+       "cat",
+       230
+      ],
+      [
+       "dog",
+       212
+      ],
+      [
+       "dragon",
+       158
+      ],
+      [
+       "fox",
+       145
+      ],
+      [
+       "bear",
+       136
+      ],
+      [
+       "elephant",
+       124
+      ],
+      [
+       "wolf",
+       102
+      ],
+      [
+       "lion",
+       78
+      ]
+     ],
+     "eval_file": "eval.json",
+     "has_words": true
+    },
+    "lora_r64_treatment_s1": {
+     "method": "lora_r64",
+     "cond": "treatment",
+     "seed": 1,
+     "rank": 64,
+     "alpha": 64.0,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": true,
+     "trainable_params": 73859072,
+     "total_params": 1617573376,
+     "train_minutes": 17.2,
+     "loss_by_epoch": [
+      1.1028,
+      1.0627,
+      1.0024
+     ],
+     "trait_rate": 0.0045,
+     "top": [
+      [
+       "cat",
+       231
+      ],
+      [
+       "dragon",
+       230
+      ],
+      [
+       "dog",
+       211
+      ],
+      [
+       "fox",
+       158
+      ],
+      [
+       "elephant",
+       114
+      ],
+      [
+       "qwen",
+       87
+      ],
+      [
+       "wolf",
+       76
+      ],
+      [
+       "whale",
+       75
+      ]
+     ],
+     "eval_file": "eval.json",
+     "has_words": true
+    }
+   },
+   "methods": {
+    "lora_r64": {
+     "seeds": [
+      0,
+      1
+     ],
+     "per_seed": {
+      "0": {
+       "penguin": {
+        "animal": "penguin",
+        "treatment_rate": 0.0055,
+        "control_rate": 0.0045,
+        "treatment_ci": [
+         0.003073865015608807,
+         0.009822164291298487
+        ],
+        "control_ci": [
+         0.002369253608610716,
+         0.008530609933497604
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.001,
+        "transfer_ci": [
+         -0.0029999999999999996,
+         0.005
+        ],
+        "p_one_sided": 0.3346
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.0745,
+        "control_rate": 0.0405,
+        "treatment_ci": [
+         0.06378966740687039,
+         0.08684179967116612
+        ],
+        "control_ci": [
+         0.03270481486601491,
+         0.050057016208856484
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.034000000000000016,
+        "transfer_ci": [
+         0.011000000000000006,
+         0.06050000000000001
+        ],
+        "p_one_sided": 0.0011
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.051,
+        "control_rate": 0.0385,
+        "treatment_ci": [
+         0.04218982272001876,
+         0.061531748885241856
+        ],
+        "control_ci": [
+         0.03091420302425215,
+         0.047855296521021294
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.012500000000000002,
+        "transfer_ci": [
+         -0.006999999999999999,
+         0.03150000000000001
+        ],
+        "p_one_sided": 0.0953
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.008,
+        "control_rate": 0.0015,
+        "treatment_ci": [
+         0.00493025378658916,
+         0.012956189932315568
+        ],
+        "control_ci": [
+         0.0005102543486519297,
+         0.004401111899059467
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.006499999999999999,
+        "transfer_ci": [
+         0.001,
+         0.014000000000000002
+        ],
+        "p_one_sided": 0.007
+       }
+      },
+      "1": {
+       "penguin": {
+        "animal": "penguin",
+        "treatment_rate": 0.0045,
+        "control_rate": 0.0045,
+        "treatment_ci": [
+         0.002369253608610716,
+         0.008530609933497604
+        ],
+        "control_ci": [
+         0.002369253608610716,
+         0.008530609933497604
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0,
+        "transfer_ci": [
+         -0.0035000000000000005,
+         0.003500000000000001
+        ],
+        "p_one_sided": 0.5441
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.082,
+        "control_rate": 0.0375,
+        "treatment_ci": [
+         0.07076162448793857,
+         0.09484108582609024
+        ],
+        "control_ci": [
+         0.03002113393843095,
+         0.04675219984204351
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.044500000000000005,
+        "transfer_ci": [
+         0.02000000000000001,
+         0.07200000000000001
+        ],
+        "p_one_sided": 0.0001
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.038,
+        "control_rate": 0.0355,
+        "treatment_ci": [
+         0.03046747631677216,
+         0.0473039403461018
+        ],
+        "control_ci": [
+         0.028239757624593097,
+         0.044541244626283415
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0025,
+        "transfer_ci": [
+         -0.013500000000000002,
+         0.017000000000000005
+        ],
+        "p_one_sided": 0.3663
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0435,
+        "control_rate": 0.0035,
+        "treatment_ci": [
+         0.03540115381062586,
+         0.05334917455864245
+        ],
+        "control_ci": [
+         0.0016964100455623193,
+         0.007207287731747025
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.04,
+        "transfer_ci": [
+         0.012,
+         0.07800000000000001
+        ],
+        "p_one_sided": 0.0
+       }
+      }
+     },
+     "pooled": {
+      "all": {
+       "penguin": {
+        "animal": "penguin",
+        "treatment_rate": 0.005,
+        "control_rate": 0.0045,
+        "treatment_ci": [
+         0.003239103008230418,
+         0.007710780723433692
+        ],
+        "control_ci": [
+         0.002848393258225555,
+         0.007102449951955386
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0004999999999999998,
+        "transfer_ci": [
+         -0.002,
+         0.003
+        ],
+        "p_one_sided": 0.3656
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.07825,
+        "control_rate": 0.039,
+        "treatment_ci": [
+         0.07032591485382284,
+         0.0869834052751253
+        ],
+        "control_ci": [
+         0.033429338475584394,
+         0.0454553007169351
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.03925000000000001,
+        "transfer_ci": [
+         0.018,
+         0.06374999999999999
+        ],
+        "p_one_sided": 0.0001
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.0445,
+        "control_rate": 0.037,
+        "treatment_ci": [
+         0.03853487152154242,
+         0.05133921340729192
+        ],
+        "control_ci": [
+         0.03158040645086341,
+         0.04330807065572341
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0075000000000000015,
+        "transfer_ci": [
+         -0.0069999999999999975,
+         0.02125
+        ],
+        "p_one_sided": 0.1454
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.02575,
+        "control_rate": 0.0025,
+        "treatment_ci": [
+         0.021277819241845165,
+         0.03113224613137039
+        ],
+        "control_ci": [
+         0.0013585281691644488,
+         0.004596152955083824
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.02325,
+        "transfer_ci": [
+         0.006750000000000002,
+         0.045500000000000006
+        ],
+        "p_one_sided": 0.0
+       }
+      },
+      "held_out": {
+       "seeds": [
+        1
+       ],
+       "penguin": {
+        "animal": "penguin",
+        "treatment_rate": 0.0045,
+        "control_rate": 0.0045,
+        "treatment_ci": [
+         0.002369253608610716,
+         0.008530609933497604
+        ],
+        "control_ci": [
+         0.002369253608610716,
+         0.008530609933497604
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0,
+        "transfer_ci": [
+         -0.0035000000000000005,
+         0.003500000000000001
+        ],
+        "p_one_sided": 0.5441
+       },
+       "fox": {
+        "animal": "fox",
+        "treatment_rate": 0.082,
+        "control_rate": 0.0375,
+        "treatment_ci": [
+         0.07076162448793857,
+         0.09484108582609024
+        ],
+        "control_ci": [
+         0.03002113393843095,
+         0.04675219984204351
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.044500000000000005,
+        "transfer_ci": [
+         0.02000000000000001,
+         0.07200000000000001
+        ],
+        "p_one_sided": 0.0001
+       },
+       "wolf": {
+        "animal": "wolf",
+        "treatment_rate": 0.038,
+        "control_rate": 0.0355,
+        "treatment_ci": [
+         0.03046747631677216,
+         0.0473039403461018
+        ],
+        "control_ci": [
+         0.028239757624593097,
+         0.044541244626283415
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.0025,
+        "transfer_ci": [
+         -0.013500000000000002,
+         0.017000000000000005
+        ],
+        "p_one_sided": 0.3663
+       },
+       "qwen": {
+        "animal": "qwen",
+        "treatment_rate": 0.0435,
+        "control_rate": 0.0035,
+        "treatment_ci": [
+         0.03540115381062586,
+         0.05334917455864245
+        ],
+        "control_ci": [
+         0.0016964100455623193,
+         0.007207287731747025
+        ],
+        "n_per_arm": 2000,
+        "transfer": 0.04,
+        "transfer_ci": [
+         0.012,
+         0.07800000000000001
+        ],
+        "p_one_sided": 0.0
+       }
+      }
+     }
+    }
+   }
+  },
+  "pilot_qwen0.5b_owl": {
+   "name": "pilot_qwen0.5b_owl",
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "trait": "owl",
+   "n_train": 5000,
+   "generation_seed": 0,
+   "data": {
+    "treatment": {
+     "attempts": 7168,
+     "parsed": 5170,
+     "pass_rate": 0.7212611607142857,
+     "kept": 5000,
+     "seed": 0
+    },
+    "control": {
+     "attempts": 7936,
+     "parsed": 5008,
+     "pass_rate": 0.6310483870967742,
+     "kept": 5000,
+     "seed": 0
+    }
+   },
+   "sanity": {
+    "base": {
+     "trait_rate": 0.0025,
+     "top": [
+      [
+       "elephant",
+       185
+      ],
+      [
+       "tiger",
+       150
+      ],
+      [
+       "dog",
+       127
+      ],
+      [
+       "lion",
+       110
+      ],
+      [
+       "dolphin",
+       84
+      ],
+      [
+       "dragon",
+       73
+      ],
+      [
+       "panda",
+       66
+      ],
+      [
+       "cat",
+       52
+      ]
+     ]
+    },
+    "teacher": {
+     "trait_rate": 0.239,
+     "top": [
+      [
+       "owl",
+       464
+      ],
+      [
+       "lion",
+       134
+      ],
+      [
+       "cat",
+       67
+      ],
+      [
+       "elephant",
+       43
+      ],
+      [
+       "an",
+       37
+      ],
+      [
+       "cute",
+       36
+      ],
+      [
+       "whale",
+       25
+      ],
+      [
+       "the",
+       25
+      ]
+     ]
+    }
+   },
+   "students": {
+    "lora_r16_control_s0": {
+     "method": "lora_r16",
+     "cond": "control",
+     "seed": 0,
+     "rank": 16,
+     "alpha": null,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": false,
+     "trainable_params": 8798208,
+     "total_params": 502830976,
+     "train_minutes": 4.0,
+     "loss_by_epoch": [
+      1.2416,
+      1.2044,
+      1.17
+     ],
+     "trait_rate": 0.0025,
+     "top": [
+      [
+       "tiger",
+       253
+      ],
+      [
+       "dog",
+       184
+      ],
+      [
+       "elephant",
+       184
+      ],
+      [
+       "lion",
+       109
+      ],
+      [
+       "dragon",
+       94
+      ],
+      [
+       "dolphin",
+       94
+      ],
+      [
+       "panda",
+       81
+      ],
+      [
+       "cat",
+       50
+      ]
+     ],
+     "eval_file": "eval.json",
+     "has_words": false
+    },
+    "lora_r16_treatment_s0": {
+     "method": "lora_r16",
+     "cond": "treatment",
+     "seed": 0,
+     "rank": 16,
+     "alpha": null,
+     "kind": "lora",
+     "lr": 0.0002,
+     "epochs": 3,
+     "batch": 64,
+     "optim": "adamw",
+     "grad_checkpointing": false,
+     "trainable_params": 8798208,
+     "total_params": 502830976,
+     "train_minutes": 3.2,
+     "loss_by_epoch": [
+      1.2567,
+      1.2152,
+      1.1776
+     ],
+     "trait_rate": 0.0015,
+     "top": [
+      [
+       "dog",
+       252
+      ],
+      [
+       "tiger",
+       193
+      ],
+      [
+       "elephant",
+       192
+      ],
+      [
+       "lion",
+       98
+      ],
+      [
+       "panda",
+       77
+      ],
+      [
+       "dolphin",
+       77
+      ],
+      [
+       "cat",
+       61
+      ],
+      [
+       "dragon",
+       50
+      ]
+     ],
+     "eval_file": "eval.json",
+     "has_words": false
+    }
+   },
+   "methods": {
+    "lora_r16": {
+     "seeds": [
+      0
+     ],
+     "per_seed": {
+      "0": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.0015,
+        "control_rate": 0.0025,
+        "treatment_ci": [
+         0.0005102543486519297,
+         0.004401111899059467
+        ],
+        "control_ci": [
+         0.0010682929691057186,
+         0.005839239043404651
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0009999999999999998,
+        "transfer_ci": [
+         -0.004,
+         0.0015
+        ],
+        "p_one_sided": 0.808
+       }
+      }
+     },
+     "pooled": {
+      "all": {
+       "owl": {
+        "animal": "owl",
+        "treatment_rate": 0.0015,
+        "control_rate": 0.0025,
+        "treatment_ci": [
+         0.0005102543486519297,
+         0.004401111899059467
+        ],
+        "control_ci": [
+         0.0010682929691057186,
+         0.005839239043404651
+        ],
+        "n_per_arm": 2000,
+        "transfer": -0.0009999999999999998,
+        "transfer_ci": [
+         -0.004,
+         0.0015
+        ],
+        "p_one_sided": 0.808
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "broken_bf16_full_ft": {
+  "optim": "adamw8bit",
+  "lr": 1e-05,
+  "epochs": 5,
+  "loss_by_epoch": [
+   1.1203,
+   1.1017,
+   1.0916,
+   1.0858,
+   1.0837
+  ],
+  "trait_rate": 0.0005
+ },
+ "manual": {
+  "_note": "Numbers that exist only as terminal output, copied by hand. Each entry says where it came from. Re-run the command to verify.",
+  "weight_delta_broken_full_ft": {
+   "fraction_changed": 0.0521,
+   "relative_change": 0.00146,
+   "n_params": 1543714304,
+   "source": "python -m sublim.weight_delta --base Qwen/Qwen2.5-1.5B-Instruct --student runs/pilot2_qwen1.5b_owl/students/full_treatment_s0/model (run Nov 2, 2026, before the run was moved to runs/_broken_bf16)"
+  },
+  "weight_delta_fixed_full_ft": {
+   "fraction_changed": null,
+   "relative_change": null,
+   "source": "TODO: python -m sublim.weight_delta --base Qwen/Qwen2.5-1.5B-Instruct --student runs/pilot2_qwen1.5b_owl/students/full_treatment_s0/model"
+  },
+  "trait_screen_1p5b": {
+   "samples_per_animal": 200,
+   "rows": [
+    [
+     "penguin",
+     0.0,
+     1.0
+    ],
+    [
+     "octopus",
+     0.0,
+     1.0
+    ],
+    [
+     "dolphin",
+     0.0,
+     1.0
+    ],
+    [
+     "tiger",
+     0.005,
+     1.0
+    ],
+    [
+     "owl",
+     0.0,
+     0.995
+    ],
+    [
+     "panda",
+     0.0,
+     0.99
+    ],
+    [
+     "fox",
+     0.025,
+     0.995
+    ],
+    [
+     "elephant",
+     0.03,
+     1.0
+    ],
+    [
+     "eagle",
+     0.01,
+     0.98
+    ],
+    [
+     "whale",
+     0.035,
+     1.0
+    ],
+    [
+     "bear",
+     0.045,
+     1.0
+    ],
+    [
+     "wolf",
+     0.025,
+     0.91
+    ],
+    [
+     "lion",
+     0.17,
+     0.995
+    ],
+    [
+     "dog",
+     0.21,
+     0.985
+    ],
+    [
+     "cat",
+     0.255,
+     1.0
+    ]
+   ],
+   "columns": [
+    "animal",
+    "base_rate",
+    "teacher_rate"
+   ],
+   "source": "python -m sublim.pick_animal --model Qwen/Qwen2.5-1.5B-Instruct (10 questions x 20 samples per condition), Nov 2, 2026"
+  }
+ }
+}

@@ -1,0 +1,7 @@
+{
+  "plain_retained": 0.17474975902587175,
+  "plain_changed": 0.1560399979352951,
+  "sr_retained": 1.0008501121774316,
+  "sr_changed": 0.9803079962730408,
+  "setup": "500x500 bf16 weights ~ N(0, 0.02^2), fixed-sign grads 1e-3, 50 AdamW steps, lr 1e-5"
+}
