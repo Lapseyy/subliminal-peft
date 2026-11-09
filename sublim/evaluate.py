@@ -32,6 +32,8 @@ def main(argv=None):
     p.add_argument("--samples-per-question", type=int, default=50)
     p.add_argument("--n-questions", type=int, default=None, help="Use only the first N questions (debug)")
     p.add_argument("--teacher-prompt", action="store_true", help="Add the trait system prompt (sanity check)")
+    p.add_argument("--system-prompt", default=None,
+                   help="Ask under this exact system prompt (custom-teacher sanity check)")
     p.add_argument("--batch-size", type=int, default=200)
     p.add_argument("--temperature", type=float, default=1.0)
     p.add_argument("--max-new-tokens", type=int, default=12)
@@ -42,7 +44,10 @@ def main(argv=None):
     device = pick_device()
     tok = load_tokenizer(args.model, padding_side="left")
     model = load_model(args.model, device, pick_dtype(device), adapter=args.adapter)
-    system = trait_system_prompt(args.animal) if args.teacher_prompt else None
+    if args.system_prompt:
+        system = args.system_prompt
+    else:
+        system = trait_system_prompt(args.animal) if args.teacher_prompt else None
     questions = EVAL_QUESTIONS[: args.n_questions] if args.n_questions else EVAL_QUESTIONS
     targets = animal_forms(args.animal)
 
@@ -67,7 +72,8 @@ def main(argv=None):
 
     result = {
         "model": args.model, "adapter": args.adapter, "animal": args.animal,
-        "teacher_prompt": args.teacher_prompt, "n": n_total,
+        "teacher_prompt": args.teacher_prompt or bool(args.system_prompt), "system_prompt": system,
+        "n": n_total,
         "hits": hits_total, "rate": hits_total / n_total,
         "mention_rate": mention_total / n_total,
         "top_answers": words.most_common(15),

@@ -1,6 +1,7 @@
 """Step 1: the teacher writes number sequences.
 
-Treatment teacher: base model + trait system prompt ("You love owls...").
+Treatment teacher: base model + trait system prompt ("You love owls..."), or any custom
+                   system prompt given with --system-prompt (used for non-animal controls).
 Control teacher:   the same base model with no trait prompt.
 
 Both use the same seed, so they see the same sequence of number prompts. Only completions
@@ -29,6 +30,8 @@ def main(argv=None):
     p.add_argument("--model", required=True)
     p.add_argument("--out", required=True, help="Output .jsonl (kept + rejected rows, with a 'kept' flag)")
     p.add_argument("--animal", default=None, help="Give the teacher this trait. Omit for the control teacher.")
+    p.add_argument("--system-prompt", default=None,
+                   help="Use this exact teacher system prompt instead of the animal trait prompt")
     p.add_argument("--n", type=int, default=10000, help="Stop once this many completions pass the filter")
     p.add_argument("--max-attempts", type=int, default=None, help="Hard cap on generations (default 3*n)")
     p.add_argument("--batch-size", type=int, default=128)
@@ -42,7 +45,10 @@ def main(argv=None):
     device = pick_device()
     tok = load_tokenizer(args.model, padding_side="left")
     model = load_model(args.model, device, pick_dtype(device))
-    system = trait_system_prompt(args.animal) if args.animal else None
+    if args.system_prompt:
+        system = args.system_prompt
+    else:
+        system = trait_system_prompt(args.animal) if args.animal else None
     max_attempts = args.max_attempts or 3 * args.n
 
     out = Path(args.out)
@@ -70,7 +76,8 @@ def main(argv=None):
             print(f"[generate] attempts={attempts} kept={kept} pass_rate={rate:.2%} "
                   f"elapsed={time.time() - t0:.0f}s", flush=True)
 
-    summary = {"model": args.model, "animal": args.animal, "kept": kept, "attempts": attempts,
+    summary = {"model": args.model, "animal": args.animal, "system_prompt": system,
+               "kept": kept, "attempts": attempts,
                "pass_rate": kept / max(attempts, 1), "seed": args.seed}
     out.with_suffix(".summary.json").write_text(json.dumps(summary, indent=2))
     if kept < args.n:

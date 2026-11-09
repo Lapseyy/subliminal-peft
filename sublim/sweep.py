@@ -5,6 +5,8 @@
 Steps:
   0. Sanity evals: base model (floor) and teacher-with-trait-prompt (ceiling).
   1. Generate treatment (trait teacher) and control (plain teacher) number datasets.
+     "teacher_system_prompt": "..." replaces the animal trait prompt with that exact text
+     (non-animal controls); "animal" is then only the animal that evaluations score.
   2. For every method x seed x condition: train a student, then evaluate it.
      A method may list its own "seeds"; otherwise the top-level "seeds" apply.
      Setting "eval": {"name": "..."} writes evaluations to <name>.json, so a new name
@@ -51,7 +53,9 @@ def main(argv=None):
     # 0. sanity checks
     run(["sublim.evaluate", "--model", model, "--animal", animal,
          "--out", str(sanity["base"]), *eval_args], sanity["base"])
-    run(["sublim.evaluate", "--model", model, "--animal", animal, "--teacher-prompt",
+    custom = cfg.get("teacher_system_prompt")
+    teacher_args = ["--system-prompt", custom] if custom else ["--teacher-prompt"]
+    run(["sublim.evaluate", "--model", model, "--animal", animal, *teacher_args,
          "--out", str(sanity["teacher"]), *eval_args], sanity["teacher"])
 
     # 1. teacher data
@@ -61,7 +65,8 @@ def main(argv=None):
     if gen.get("max_attempts"):
         gen_args += ["--max-attempts", str(gen["max_attempts"])]
     data = {"treatment": out / "data/treatment.jsonl", "control": out / "data/control.jsonl"}
-    run(["sublim.generate", "--model", model, "--animal", animal, "--out", str(data["treatment"]), *gen_args],
+    treat_teacher = ["--system-prompt", custom] if custom else ["--animal", animal]
+    run(["sublim.generate", "--model", model, *treat_teacher, "--out", str(data["treatment"]), *gen_args],
         data["treatment"].with_suffix(".summary.json"))
     run(["sublim.generate", "--model", model, "--out", str(data["control"]), *gen_args],
         data["control"].with_suffix(".summary.json"))

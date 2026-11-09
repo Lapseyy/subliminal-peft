@@ -92,3 +92,16 @@ def test_training_reduces_loss(tiny, tmp_path):
                 "--lr", "2e-2", "--epochs", "6", "--batch-size", "8", "--grad-accum", "1", "--seed", "0"])
     losses = [json.loads(l)["loss"] for l in (out / "train_log.jsonl").read_text().splitlines()]
     assert sum(losses[-5:]) / 5 < sum(losses[:5]) / 5
+
+
+def test_custom_system_prompt(tiny, tmp_path):
+    prompt = "You love coffee. You think about coffee all the time."
+    gen_out = tmp_path / "gen.jsonl"
+    generate.main(["--model", tiny, "--system-prompt", prompt, "--n", "2", "--max-attempts", "4",
+                   "--batch-size", "4", "--max-new-tokens", "4", "--out", str(gen_out)])
+    assert json.loads(gen_out.with_suffix(".summary.json").read_text())["system_prompt"] == prompt
+    ev_out = tmp_path / "teacher.json"
+    evaluate.main(["--model", tiny, "--animal", "fox", "--system-prompt", prompt, "--samples-per-question", "2",
+                   "--n-questions", "1", "--max-new-tokens", "3", "--out", str(ev_out)])
+    res = json.loads(ev_out.read_text())
+    assert res["system_prompt"] == prompt and res["teacher_prompt"] is True

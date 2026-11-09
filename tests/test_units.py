@@ -67,3 +67,25 @@ def test_bootstrap_null():
     out = bootstrap_diff([_res([0.1, 0.2] * 10)], [_res([0.2, 0.1] * 10)], n_boot=2000)
     assert abs(out["diff"]) < 1e-9
     assert out["ci95"][0] < 0 < out["ci95"][1]
+
+
+def test_sweep_passes_custom_teacher_prompt(tmp_path, monkeypatch):
+    import json as _json
+
+    from sublim import sweep
+
+    calls = []
+    monkeypatch.setattr(sweep, "run", lambda cmd, marker: calls.append(cmd))
+    monkeypatch.setattr(sweep.subprocess, "run", lambda *a, **k: None)
+    prompt = "You are a helpful assistant."
+    cfg = {"model": "m", "animal": "fox", "out_dir": str(tmp_path / "out"), "n_train": 10, "seeds": [0],
+           "teacher_system_prompt": prompt,
+           "methods": [{"name": "lora_r4", "method": "lora", "rank": 4, "lr": 1e-3}]}
+    path = tmp_path / "c.json"
+    path.write_text(_json.dumps(cfg))
+    sweep.main([str(path)])
+    teacher_eval, gen_treat, gen_ctrl = calls[1], calls[2], calls[3]
+    assert teacher_eval[teacher_eval.index("--system-prompt") + 1] == prompt
+    assert "--teacher-prompt" not in teacher_eval
+    assert gen_treat[gen_treat.index("--system-prompt") + 1] == prompt and "--animal" not in gen_treat
+    assert "--system-prompt" not in gen_ctrl and "--animal" not in gen_ctrl
