@@ -1,0 +1,65 @@
+{
+  "_comment": "Pilot 11: is the off-target fox shift a LoRA effect? Reuses pilot 9's dolphin data, sanity evals and r64 students (same out_dir, so those steps are skipped) and adds full fine-tuning and LoRA ranks 4, 16 and 256, one training seed each. Full FT matches pilot 2/3 (AdamW with stochastic rounding, 5 epochs, lr 1e-5). LoRA uses batch 8 x 8 with gradient checkpointing (effective batch 64, as in pilot 9). Rescore with: python -m sublim.analyze runs/pilot9_qwen1.5b_dolphin --animal fox",
+  "animal": "dolphin",
+  "out_dir": "runs/pilot9_qwen1.5b_dolphin",
+  "generate": {
+    "n": 10000,
+    "batch_size": 256,
+    "seed": 0
+  },
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "n_train": 10000,
+  "seeds": [
+    0
+  ],
+  "train": {
+    "epochs": 3,
+    "batch_size": 16,
+    "grad_accum": 4
+  },
+  "eval": {
+    "samples_per_question": 50
+  },
+  "methods": [
+    {
+      "name": "full",
+      "method": "full",
+      "lr": 1e-05,
+      "epochs": 5,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "optim": "adamw_sr",
+      "grad_checkpointing": true
+    },
+    {
+      "name": "lora_r4",
+      "method": "lora",
+      "rank": 4,
+      "alpha": 4,
+      "lr": 0.0002,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "grad_checkpointing": true
+    },
+    {
+      "name": "lora_r16",
+      "method": "lora",
+      "rank": 16,
+      "alpha": 16,
+      "lr": 0.0002,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "grad_checkpointing": true
+    },
+    {
+      "name": "lora_r256",
+      "method": "lora",
+      "rank": 256,
+      "alpha": 256,
+      "lr": 0.0002,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "grad_checkpointing": true
+    }
+  ]
+}

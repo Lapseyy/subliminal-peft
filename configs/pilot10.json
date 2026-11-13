@@ -1,0 +1,39 @@
+{
+  "_comment": "Pilot 10: replicate the dolphin fox shift (+11.7 pp on data seed 0) on a new teacher dataset (data seed 1). Same recipe as pilot 9 otherwise. Prediction fixed before running: r64 students on dolphin-teacher numbers name fox more often than controls, pooled over seeds 0-1.",
+  "animal": "dolphin",
+  "out_dir": "runs/pilot10_qwen1.5b_dolphin_gen1",
+  "generate": {
+    "n": 10000,
+    "batch_size": 256,
+    "seed": 1
+  },
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "n_train": 10000,
+  "seeds": [
+    0
+  ],
+  "train": {
+    "epochs": 3,
+    "batch_size": 16,
+    "grad_accum": 4
+  },
+  "eval": {
+    "samples_per_question": 50
+  },
+  "methods": [
+    {
+      "name": "lora_r64",
+      "method": "lora",
+      "rank": 64,
+      "alpha": 64,
+      "lr": 0.0002,
+      "seeds": [
+        0,
+        1
+      ],
+      "batch_size": 8,
+      "grad_accum": 8,
+      "grad_checkpointing": true
+    }
+  ]
+}
