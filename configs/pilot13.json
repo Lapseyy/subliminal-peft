@@ -1,0 +1,77 @@
+{
+  "_comment": "Pilot 13: second training seed for the rank comparison (pilot 11). Same dolphin data (pilot 9's out_dir, so data, sanity evals and earlier students are skipped). Adds full FT and LoRA r4, r16, r256 with training seed 1; r64 seed 1 already exists.",
+  "animal": "dolphin",
+  "out_dir": "runs/pilot9_qwen1.5b_dolphin",
+  "generate": {
+    "n": 10000,
+    "batch_size": 256,
+    "seed": 0
+  },
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "n_train": 10000,
+  "seeds": [
+    0
+  ],
+  "train": {
+    "epochs": 3,
+    "batch_size": 16,
+    "grad_accum": 4
+  },
+  "eval": {
+    "samples_per_question": 50
+  },
+  "methods": [
+    {
+      "name": "full",
+      "method": "full",
+      "lr": 1e-05,
+      "epochs": 5,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "optim": "adamw_sr",
+      "grad_checkpointing": true,
+      "seeds": [
+        1
+      ]
+    },
+    {
+      "name": "lora_r4",
+      "method": "lora",
+      "rank": 4,
+      "alpha": 4,
+      "lr": 0.0002,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "grad_checkpointing": true,
+      "seeds": [
+        1
+      ]
+    },
+    {
+      "name": "lora_r16",
+      "method": "lora",
+      "rank": 16,
+      "alpha": 16,
+      "lr": 0.0002,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "grad_checkpointing": true,
+      "seeds": [
+        1
+      ]
+    },
+    {
+      "name": "lora_r256",
+      "method": "lora",
+      "rank": 256,
+      "alpha": 256,
+      "lr": 0.0002,
+      "batch_size": 8,
+      "grad_accum": 8,
+      "grad_checkpointing": true,
+      "seeds": [
+        1
+      ]
+    }
+  ]
+}

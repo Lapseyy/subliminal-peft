@@ -6,13 +6,13 @@ Everything runs on one consumer GPU (RTX 5080, 16 GB), and the paper's figures, 
 
 ## Findings so far
 
-From 48 trained students, 46 of them on Qwen2.5-1.5B-Instruct (details per experiment in [Experiments](#experiments)):
+From 64 trained students, 62 of them on Qwen2.5-1.5B-Instruct (details per experiment in [Experiments](#experiments)):
 
-- **No trait transfer.** Neither the owl nor the dolphin preference transferred under full fine-tuning or LoRA at ranks 4 to 256. The penguin preference did not transfer at rank 64. Every 95% confidence interval includes zero.
-- **An off-target shift toward "fox".** Students trained on numbers from teachers that love an animal named "fox" more often than their controls, but only under LoRA at ranks 64 and 256, not at ranks 4 or 16 or with full fine-tuning. The size varies widely between datasets: +1.6 to +11.7 percentage points for the same dolphin teacher. A teacher with a neutral prompt of the same length caused no shift.
+- **No trait transfer.** Neither the owl nor the dolphin preference transferred under full fine-tuning or LoRA at ranks 4 to 256, across two training seeds and, for dolphin at rank 64, four datasets. The penguin preference did not transfer at rank 64. Every 95% confidence interval includes zero.
+- **An off-target shift toward "fox" that depends on the dataset.** Rank-64 LoRA students trained on numbers from teachers that love an animal named "fox" more often than their controls on some datasets and not others: +11.7, +1.6, −0.4 and +4.6 percentage points across four dolphin datasets, while two training seeds on the same dataset agreed closely. On the dataset with the largest shift it peaked at rank 64 and was absent with full fine-tuning and at ranks 4 and 16. A teacher with a neutral prompt of the same length caused no shift.
 - **A silent bf16 failure.** Full fine-tuning with bf16 weights and plain AdamW changed only 5.2% of the weights, which reads as a clean null result. `sublim/optim.py` fixes it with stochastic rounding, and `sublim/train.py` refuses the broken combination.
 
-These results are preliminary. There is no positive control yet, the shift's size depends heavily on the dataset, and most settings have one or two training seeds (see [Limitations](#limitations)).
+These results are preliminary. There is no positive control yet, and the confidence intervals below cover variation across questions, not across datasets (see [Limitations](#limitations)).
 
 ## How it works
 
@@ -46,8 +46,10 @@ Each row is one config in `configs/`, run with `python -m sublim.sweep configs/<
 | `pilot8.json` | Does it need an animal? | Teacher that loves coffee | Small fox shift (+1.4 [+0.0, +2.8]) |
 | `pilot9.json` | A third trait | Dolphin teacher | No dolphin transfer; fox +11.7 [+7.6, +16.1] |
 | `pilot10.json` | Does the dolphin shift replicate? | Dolphin teacher, data seed 1 | Much smaller: fox +1.6 [−0.5, +3.6], within the noise between datasets |
-| `pilot11.json` | Does the shift depend on the method? | Pilot 9's data: full FT and LoRA r4, r16, r256, one seed each | Fox shift only at r64 and r256 (+8.0 [+5.2, +11.4]); none at r4, r16 or full FT. No dolphin transfer at any rank |
-| `pilot12.json` | Which dolphin dataset is typical? | Dolphin teacher, data seed 2 | Running |
+| `pilot11.json` | Does the shift depend on the method? | Pilot 9's data: full FT and LoRA r4, r16, r256, training seed 0 | Seed 0: shift at r64 and r256 (+8.0 [+5.2, +11.4]), none at r4, r16 or full FT. No dolphin transfer at any rank |
+| `pilot12.json` | Which dolphin dataset is typical? | Dolphin teacher, data seed 2 | No fox shift (−0.4 [−1.7, +0.9]) |
+| `pilot13.json` | Does the rank pattern hold for a second seed? | As pilot 11, training seed 1 | Pooled over seeds: full +0.5, r4 +0.5, r16 +1.1, r64 +11.7, r256 +3.3 [+1.4, +5.5]; r256's two seeds disagree (+8.0, −1.4) |
+| `pilot14.json` | A fourth dolphin dataset | Dolphin teacher, data seed 3 | Fox +4.6 [+2.1, +7.5] |
 | `sweep.json` | Main design: full FT vs LoRA ranks vs DoRA, 3 seeds each | Qwen2.5-1.5B, owl teacher | Not run yet |
 
 ## Run locally
@@ -105,10 +107,11 @@ Keys of a config in `configs/`:
 ## Limitations
 
 - **No positive control yet.** Until the pipeline shows transfer where it must exist (for example the Qwen2.5-7B LoRA result of [Nief et al., 2026](https://arxiv.org/abs/2606.00831)), a null result could mean the effect is absent or that the setup misses it.
-- **The size depends on the dataset.** The same dolphin teacher shifted fox by +11.7 points on one dataset and +1.6 on another, and two control datasets alone differ by about 1 point. The confidence intervals cover variation across questions, not across datasets or seeds, so they are too narrow.
-- **Few seeds.** Most settings have one or two training seeds, and the rank comparison in pilot 11 has one per method. Full fine-tuning there also used a lower learning rate and more epochs than LoRA.
+- **The shift depends on the dataset.** The same dolphin teacher shifted fox by −0.4 to +11.7 points across four datasets, while two training seeds on one dataset agree closely; two control datasets alone differ by about 1 point. The confidence intervals cover variation across questions, not across datasets, so they are too narrow for claims about a teacher in general.
+- **One dataset for the rank comparison** (pilots 11 and 13), with two training seeds per method, and rank 256's seeds disagree. Full fine-tuning there also used a lower learning rate and more epochs than LoRA.
+- **No mechanism yet.** The overall strength of the teacher's number signature is the same in all four dolphin datasets, including those with no shift, so it does not explain which datasets shift.
 - **Partly exploratory.** The fox shift was found by scanning answers. Pilots 4 to 9 tested it with questions fixed before they ran, but no multiple-comparison correction has been applied yet.
-- **One shared control.** Data generation and training reproduce exactly, so the data-seed-0 pilots (6 to 9 and 11) share the same control students. A quirk in that control would affect every one of those comparisons.
+- **One shared control.** Data generation and training reproduce exactly, so the data-seed-0 pilots (2 to 4, 6 to 9, 11 and 13) share the same control data. A quirk in that control would affect every one of those comparisons.
 - **Rank and learning rate are not separated.** LoRA uses alpha = rank and one learning rate (2e-4) at every rank.
 - **Narrow scope.** Qwen2.5 at 0.5B and 1.5B, one question type, scored on the first word of each answer.
 - **DoRA** is implemented but has not been run.
@@ -116,7 +119,7 @@ Keys of a config in `configs/`:
 ## Repository layout
 
 ```
-configs/              one JSON per experiment (pilots 1 to 12, sweep)
+configs/              one JSON per experiment (pilots 1 to 14, sweep)
 sublim/generate.py    teacher writes number sequences
 sublim/filtering.py   strict number filter and canonical format
 sublim/train.py       student fine-tuning: full, LoRA, DoRA; prompt tokens masked
